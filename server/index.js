@@ -17,6 +17,7 @@ const path = require('path');
 require('dotenv').config();
 
 const satisfactionRoutes = require('./routes/satisfaction');
+const authRoutes = require('./routes/auth');
 const { initDatabase } = require('./database/init');
 
 const app = express();
@@ -30,6 +31,7 @@ app.use(express.json());
 initDatabase()
   .then(() => {
     // Routes
+    app.use('/api/auth', authRoutes);
     app.use('/api/satisfaction', satisfactionRoutes);
 
     // Health check

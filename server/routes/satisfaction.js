@@ -1,7 +1,11 @@
 const express = require('express');
 const { getDb } = require('../database/init');
+const { authenticateToken } = require('./auth');
 
 const router = express.Router();
+
+// All routes require authentication
+router.use(authenticateToken);
 
 // Get all satisfaction data
 router.get('/', (req, res) => {
