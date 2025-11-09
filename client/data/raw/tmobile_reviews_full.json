@@ -1,0 +1,1010 @@
+[
+  {
+    "first_name": "Emma",
+    "last_initial": "D.",
+    "city": "Fort Worth, TX",
+    "sentiment": "positive",
+    "review": "Honestly blown away by the 5G speeds today, feels unreal!"
+  },
+  {
+    "first_name": "Emma",
+    "last_initial": "C.",
+    "city": "Jacksonville, FL",
+    "sentiment": "positive",
+    "review": "T-Mobile came in clutch, best carrier experience I\u2019ve ever had."
+  },
+  {
+    "first_name": "Isabella",
+    "last_initial": "U.",
+    "city": "Houston, TX",
+    "sentiment": "positive",
+    "review": "Customer support actually solved my issue first try, rare W!"
+  },
+  {
+    "first_name": "Charlotte",
+    "last_initial": "R.",
+    "city": "Austin, TX",
+    "sentiment": "positive",
+    "review": "Switched to TMobile and haven\u2019t regretted it one bit."
+  },
+  {
+    "first_name": "James",
+    "last_initial": "K.",
+    "city": "San Francisco, CA",
+    "sentiment": "positive",
+    "review": "Insane coverage even in the middle of nowhere, respect."
+  },
+  {
+    "first_name": "Oliver",
+    "last_initial": "U.",
+    "city": "Columbus, OH",
+    "sentiment": "positive",
+    "review": "Download speeds just hit 700mbps... T-Mobile cooking fr."
+  },
+  {
+    "first_name": "Alexander",
+    "last_initial": "V.",
+    "city": "Austin, TX",
+    "sentiment": "positive",
+    "review": "I don't tweet much but T-Mobile deserves the praise, this service is crazy good."
+  },
+  {
+    "first_name": "James",
+    "last_initial": "Z.",
+    "city": "Indianapolis, IN",
+    "sentiment": "positive",
+    "review": "Finally a carrier that actually improves instead of getting worse over time \ud83d\ude4c"
+  },
+  {
+    "first_name": "Emma",
+    "last_initial": "V.",
+    "city": "San Francisco, CA",
+    "sentiment": "positive",
+    "review": "Shoutout to the T-Mobile tech who fixed my network in legit 3 minutes. Legend."
+  },
+  {
+    "first_name": "Noah",
+    "last_initial": "W.",
+    "city": "Austin, TX",
+    "sentiment": "positive",
+    "review": "My phone service used to stress me out\u2026 now it just works. Thank you TMobile."
+  },
+  {
+    "first_name": "Noah",
+    "last_initial": "J.",
+    "city": "Seattle, WA",
+    "sentiment": "positive",
+    "review": "Went on a road trip through 3 states and never lost reception once. Impressive."
+  },
+  {
+    "first_name": "Harper",
+    "last_initial": "X.",
+    "city": "Chicago, IL",
+    "sentiment": "positive",
+    "review": "The 5G UC icon might be the most beautiful thing I've ever seen on my phone."
+  },
+  {
+    "first_name": "Elijah",
+    "last_initial": "Z.",
+    "city": "Fort Worth, TX",
+    "sentiment": "positive",
+    "review": "Why is T-Mobile faster in the woods than my home WiFi \ud83d\ude2d"
+  },
+  {
+    "first_name": "Henry",
+    "last_initial": "C.",
+    "city": "Columbus, OH",
+    "sentiment": "positive",
+    "review": "Officially a T-Mobile fan account now, idc."
+  },
+  {
+    "first_name": "Ava",
+    "last_initial": "X.",
+    "city": "Washington, DC",
+    "sentiment": "positive",
+    "review": "Can we talk about how fast T-Mobile improved? Night and day difference."
+  },
+  {
+    "first_name": "Ella",
+    "last_initial": "E.",
+    "city": "Columbus, OH",
+    "sentiment": "positive",
+    "review": "No dropped calls, no buffering, no drama. Just service. Finally."
+  },
+  {
+    "first_name": "Benjamin",
+    "last_initial": "P.",
+    "city": "Dallas, TX",
+    "sentiment": "positive",
+    "review": "Had an issue, tweeted at support, got a fix in minutes. 10/10 experience."
+  },
+  {
+    "first_name": "Ella",
+    "last_initial": "X.",
+    "city": "Denver, CO",
+    "sentiment": "positive",
+    "review": "I just said 'wow' out loud at a speed test result. TMobile exceeding expectations."
+  },
+  {
+    "first_name": "Lucas",
+    "last_initial": "P.",
+    "city": "Fort Worth, TX",
+    "sentiment": "positive",
+    "review": "My bill went down and my speeds went up\u2026 what kind of magic is this?"
+  },
+  {
+    "first_name": "Liam",
+    "last_initial": "A.",
+    "city": "Charlotte, NC",
+    "sentiment": "positive",
+    "review": "I livestreamed an entire concert on T-Mobile data, not a single lag spike."
+  },
+  {
+    "first_name": "Noah",
+    "last_initial": "Z.",
+    "city": "San Antonio, TX",
+    "sentiment": "positive",
+    "review": "Switching to T-Mobile might be my smartest adult decision so far."
+  },
+  {
+    "first_name": "Ava",
+    "last_initial": "U.",
+    "city": "Charlotte, NC",
+    "sentiment": "positive",
+    "review": "Coverage? \u2705 Speed? \u2705 Price? \u2705 Customer care? \u2705 We love balance."
+  },
+  {
+    "first_name": "James",
+    "last_initial": "M.",
+    "city": "Washington, DC",
+    "sentiment": "positive",
+    "review": "T-Mobile really said 'let\u2019s actually take care of our customers' and meant it."
+  },
+  {
+    "first_name": "Mia",
+    "last_initial": "H.",
+    "city": "Denver, CO",
+    "sentiment": "positive",
+    "review": "From signal dead zones to 5G everywhere\u2026 the glow up is real."
+  },
+  {
+    "first_name": "Emma",
+    "last_initial": "H.",
+    "city": "Chicago, IL",
+    "sentiment": "positive",
+    "review": "The real test was live streaming on the highway. T-Mobile passed with flying colors."
+  },
+  {
+    "first_name": "Harper",
+    "last_initial": "R.",
+    "city": "Dallas, TX",
+    "sentiment": "positive",
+    "review": "Airport WiFi is officially useless to me now. T-Mobile is faster."
+  },
+  {
+    "first_name": "Amelia",
+    "last_initial": "C.",
+    "city": "San Antonio, TX",
+    "sentiment": "positive",
+    "review": "I fear I'm becoming a T-Mobile evangelist because wow, this is GOOD good."
+  },
+  {
+    "first_name": "Mia",
+    "last_initial": "R.",
+    "city": "San Diego, CA",
+    "sentiment": "positive",
+    "review": "T-Mobile understood the assignment and did the extra credit."
+  },
+  {
+    "first_name": "Lucas",
+    "last_initial": "U.",
+    "city": "Washington, DC",
+    "sentiment": "positive",
+    "review": "Hotspot carried my entire work day with zero issues. Zero."
+  },
+  {
+    "first_name": "Amelia",
+    "last_initial": "C.",
+    "city": "Phoenix, AZ",
+    "sentiment": "positive",
+    "review": "Customer support being kind AND helpful? We love to see it."
+  },
+  {
+    "first_name": "Ella",
+    "last_initial": "A.",
+    "city": "Philadelphia, PA",
+    "sentiment": "positive",
+    "review": "Not to be dramatic but T-Mobile 5G kind of changed my life."
+  },
+  {
+    "first_name": "Oliver",
+    "last_initial": "K.",
+    "city": "Jacksonville, FL",
+    "sentiment": "positive",
+    "review": "Switched my family plan and everyone noticed the difference instantly."
+  },
+  {
+    "first_name": "Ethan",
+    "last_initial": "B.",
+    "city": "Columbus, OH",
+    "sentiment": "positive",
+    "review": "I used to ration data\u2026 now I stream in 4K on cellular like a menace."
+  },
+  {
+    "first_name": "Alexander",
+    "last_initial": "B.",
+    "city": "Seattle, WA",
+    "sentiment": "positive",
+    "review": "T-Mobile in my city is unbeatable right now, others gotta catch up."
+  },
+  {
+    "first_name": "Lucas",
+    "last_initial": "H.",
+    "city": "Los Angeles, CA",
+    "sentiment": "positive",
+    "review": "My data loading faster than my brain at this point."
+  },
+  {
+    "first_name": "Elijah",
+    "last_initial": "N.",
+    "city": "Charlotte, NC",
+    "sentiment": "positive",
+    "review": "Had doubts before switching, now I'm wondering why I waited so long."
+  },
+  {
+    "first_name": "Mia",
+    "last_initial": "I.",
+    "city": "Washington, DC",
+    "sentiment": "positive",
+    "review": "T-Mobile fixing problems I didn\u2019t even know I had."
+  },
+  {
+    "first_name": "James",
+    "last_initial": "C.",
+    "city": "Fort Worth, TX",
+    "sentiment": "positive",
+    "review": "Service so good I thought I was on WiFi \ud83d\ude2d"
+  },
+  {
+    "first_name": "Charlotte",
+    "last_initial": "L.",
+    "city": "Charlotte, NC",
+    "sentiment": "positive",
+    "review": "T-Mobile deserves credit where it\u2019s due \u2014 network game STRONG."
+  },
+  {
+    "first_name": "Oliver",
+    "last_initial": "X.",
+    "city": "Denver, CO",
+    "sentiment": "positive",
+    "review": "Finally watching YouTube without 4 buffering pauses per minute."
+  },
+  {
+    "first_name": "Oliver",
+    "last_initial": "I.",
+    "city": "Charlotte, NC",
+    "sentiment": "positive",
+    "review": "I can make calls in places I didn't even know were *allowed* to have signal."
+  },
+  {
+    "first_name": "Liam",
+    "last_initial": "D.",
+    "city": "San Diego, CA",
+    "sentiment": "positive",
+    "review": "The future is 5G and T-Mobile brought it early."
+  },
+  {
+    "first_name": "Amelia",
+    "last_initial": "M.",
+    "city": "Los Angeles, CA",
+    "sentiment": "positive",
+    "review": "T-Mobile store employee walked me through everything, elite customer care."
+  },
+  {
+    "first_name": "Noah",
+    "last_initial": "N.",
+    "city": "Seattle, WA",
+    "sentiment": "positive",
+    "review": "Never thought I\u2019d say this but\u2026 my mobile carrier makes me happy???"
+  },
+  {
+    "first_name": "Evelyn",
+    "last_initial": "H.",
+    "city": "Charlotte, NC",
+    "sentiment": "positive",
+    "review": "Switch was seamless, pricing fair, service elite. Big win."
+  },
+  {
+    "first_name": "Harper",
+    "last_initial": "Z.",
+    "city": "Los Angeles, CA",
+    "sentiment": "positive",
+    "review": "There\u2019s fast, and then there\u2019s T-Mobile 5G fast."
+  },
+  {
+    "first_name": "Noah",
+    "last_initial": "V.",
+    "city": "Houston, TX",
+    "sentiment": "positive",
+    "review": "Watching TikToks instantly load is my new personality trait."
+  },
+  {
+    "first_name": "Emma",
+    "last_initial": "L.",
+    "city": "Houston, TX",
+    "sentiment": "positive",
+    "review": "Left another carrier and immediately leveled up. No regrets."
+  },
+  {
+    "first_name": "Noah",
+    "last_initial": "O.",
+    "city": "Denver, CO",
+    "sentiment": "positive",
+    "review": "T-Mobile service in rural areas is actually insane, major props."
+  },
+  {
+    "first_name": "Charlotte",
+    "last_initial": "Y.",
+    "city": "Phoenix, AZ",
+    "sentiment": "positive",
+    "review": "I can call my mom without robot voice cutting in, praise!"
+  },
+  {
+    "first_name": "Ava",
+    "last_initial": "G.",
+    "city": "San Francisco, CA",
+    "sentiment": "positive",
+    "review": "Big 'paid less, got more' energy from T-Mobile and I love that for me."
+  },
+  {
+    "first_name": "Harper",
+    "last_initial": "G.",
+    "city": "Jacksonville, FL",
+    "sentiment": "positive",
+    "review": "Data so good I forgot WiFi passwords even exist."
+  },
+  {
+    "first_name": "Noah",
+    "last_initial": "S.",
+    "city": "San Jose, CA",
+    "sentiment": "positive",
+    "review": "T-Mobile support answered faster than my friends do."
+  },
+  {
+    "first_name": "Emma",
+    "last_initial": "U.",
+    "city": "Columbus, OH",
+    "sentiment": "positive",
+    "review": "5G so strong it should pay rent on my phone."
+  },
+  {
+    "first_name": "Charlotte",
+    "last_initial": "Y.",
+    "city": "Jacksonville, FL",
+    "sentiment": "negative",
+    "review": "5G shouldn\u2019t be this slow in 2025\u2026 what is happening T-Mobile?"
+  },
+  {
+    "first_name": "Elijah",
+    "last_initial": "G.",
+    "city": "San Diego, CA",
+    "sentiment": "negative",
+    "review": "At this point my phone signal is more imaginary than real."
+  },
+  {
+    "first_name": "Lucas",
+    "last_initial": "R.",
+    "city": "Los Angeles, CA",
+    "sentiment": "negative",
+    "review": "Buffering a 10 second video shouldn\u2019t take 2 minutes \ud83d\ude10"
+  },
+  {
+    "first_name": "Elijah",
+    "last_initial": "D.",
+    "city": "San Francisco, CA",
+    "sentiment": "negative",
+    "review": "I have full bars but nothing loads\u2026 make it make sense T-Mobile."
+  },
+  {
+    "first_name": "Ethan",
+    "last_initial": "H.",
+    "city": "Charlotte, NC",
+    "sentiment": "negative",
+    "review": "Support transfer #6 and I still have no answers."
+  },
+  {
+    "first_name": "Benjamin",
+    "last_initial": "L.",
+    "city": "Los Angeles, CA",
+    "sentiment": "negative",
+    "review": "T-Mobile telling me to restart my phone like I didn't try that 12 times already."
+  },
+  {
+    "first_name": "Noah",
+    "last_initial": "V.",
+    "city": "Los Angeles, CA",
+    "sentiment": "negative",
+    "review": "If disappointment had a mascot it would be my signal strength right now."
+  },
+  {
+    "first_name": "Elijah",
+    "last_initial": "J.",
+    "city": "Houston, TX",
+    "sentiment": "negative",
+    "review": "I miss when dropping calls was rare, not a lifestyle."
+  },
+  {
+    "first_name": "Ava",
+    "last_initial": "Q.",
+    "city": "Phoenix, AZ",
+    "sentiment": "negative",
+    "review": "T-Mobile why my 5G acting like 2G with confidence?"
+  },
+  {
+    "first_name": "Ava",
+    "last_initial": "K.",
+    "city": "New York, NY",
+    "sentiment": "negative",
+    "review": "This network is playing hide and seek and I\u2019m losing."
+  },
+  {
+    "first_name": "Emma",
+    "last_initial": "W.",
+    "city": "San Diego, CA",
+    "sentiment": "negative",
+    "review": "I\u2019m starting to think I pay my bill out of charity at this point."
+  },
+  {
+    "first_name": "Oliver",
+    "last_initial": "I.",
+    "city": "Fort Worth, TX",
+    "sentiment": "negative",
+    "review": "My connection speed is basically Morse code."
+  },
+  {
+    "first_name": "Ella",
+    "last_initial": "Y.",
+    "city": "Dallas, TX",
+    "sentiment": "negative",
+    "review": "Outages more common than my sleep schedule."
+  },
+  {
+    "first_name": "Emma",
+    "last_initial": "L.",
+    "city": "Denver, CO",
+    "sentiment": "negative",
+    "review": "Streaming on T-Mobile data is a game of chance."
+  },
+  {
+    "first_name": "Elijah",
+    "last_initial": "W.",
+    "city": "Charlotte, NC",
+    "sentiment": "negative",
+    "review": "One day I\u2019ll have stable internet. Today is not that day."
+  },
+  {
+    "first_name": "Amelia",
+    "last_initial": "P.",
+    "city": "Austin, TX",
+    "sentiment": "negative",
+    "review": "Can we normalize functioning cell towers please?"
+  },
+  {
+    "first_name": "Elijah",
+    "last_initial": "U.",
+    "city": "Houston, TX",
+    "sentiment": "negative",
+    "review": "My data plans have trust issues after this week."
+  },
+  {
+    "first_name": "Henry",
+    "last_initial": "W.",
+    "city": "New York, NY",
+    "sentiment": "negative",
+    "review": "5 bars, 0 function. A tragic story in 4 words."
+  },
+  {
+    "first_name": "Ella",
+    "last_initial": "B.",
+    "city": "Jacksonville, FL",
+    "sentiment": "negative",
+    "review": "At this point carrier pigeons send data faster."
+  },
+  {
+    "first_name": "Noah",
+    "last_initial": "W.",
+    "city": "Fort Worth, TX",
+    "sentiment": "negative",
+    "review": "The lack of coverage is personal now."
+  },
+  {
+    "first_name": "James",
+    "last_initial": "X.",
+    "city": "San Diego, CA",
+    "sentiment": "negative",
+    "review": "I refreshed Twitter 10 times just to post this complaint \ud83d\ude2d"
+  },
+  {
+    "first_name": "Evelyn",
+    "last_initial": "J.",
+    "city": "Houston, TX",
+    "sentiment": "negative",
+    "review": "Nothing humbles you like trying to load Google Maps and getting dial-up flashbacks."
+  },
+  {
+    "first_name": "Lucas",
+    "last_initial": "X.",
+    "city": "Jacksonville, FL",
+    "sentiment": "negative",
+    "review": "Dropped calls build character, apparently."
+  },
+  {
+    "first_name": "Harper",
+    "last_initial": "F.",
+    "city": "Austin, TX",
+    "sentiment": "negative",
+    "review": "Customer service hold music is the only reliable thing about my network."
+  },
+  {
+    "first_name": "Sophia",
+    "last_initial": "D.",
+    "city": "San Francisco, CA",
+    "sentiment": "negative",
+    "review": "My signal got stage fright and never showed up."
+  },
+  {
+    "first_name": "Ethan",
+    "last_initial": "Y.",
+    "city": "Los Angeles, CA",
+    "sentiment": "negative",
+    "review": "T-Mobile went from 5G to 'why me?' real quick."
+  },
+  {
+    "first_name": "Mia",
+    "last_initial": "L.",
+    "city": "Columbus, OH",
+    "sentiment": "negative",
+    "review": "My phone has hope, but the network doesn't."
+  },
+  {
+    "first_name": "Ella",
+    "last_initial": "X.",
+    "city": "Chicago, IL",
+    "sentiment": "negative",
+    "review": "If loading screens were a personality trait."
+  },
+  {
+    "first_name": "Ella",
+    "last_initial": "X.",
+    "city": "Chicago, IL",
+    "sentiment": "negative",
+    "review": "Coverage said \u2018not today bestie.\u2019"
+  },
+  {
+    "first_name": "Ava",
+    "last_initial": "Z.",
+    "city": "Charlotte, NC",
+    "sentiment": "negative",
+    "review": "T-Mobile really testing my emotional resilience."
+  },
+  {
+    "first_name": "James",
+    "last_initial": "E.",
+    "city": "Houston, TX",
+    "sentiment": "negative",
+    "review": "Packet loss is my new cardio."
+  },
+  {
+    "first_name": "Ava",
+    "last_initial": "G.",
+    "city": "Austin, TX",
+    "sentiment": "negative",
+    "review": "My network speed is in creative mode, not survival mode."
+  },
+  {
+    "first_name": "Harper",
+    "last_initial": "X.",
+    "city": "Indianapolis, IN",
+    "sentiment": "negative",
+    "review": "Data transferring slower than generational trauma."
+  },
+  {
+    "first_name": "Liam",
+    "last_initial": "I.",
+    "city": "Charlotte, NC",
+    "sentiment": "negative",
+    "review": "The buffering circle is my sleep paralysis demon."
+  },
+  {
+    "first_name": "Emma",
+    "last_initial": "W.",
+    "city": "San Francisco, CA",
+    "sentiment": "negative",
+    "review": "I pay for 5G but receive thoughts and prayers instead."
+  },
+  {
+    "first_name": "Evelyn",
+    "last_initial": "C.",
+    "city": "San Jose, CA",
+    "sentiment": "negative",
+    "review": "My network speed built like a school group project."
+  },
+  {
+    "first_name": "Ava",
+    "last_initial": "K.",
+    "city": "Phoenix, AZ",
+    "sentiment": "negative",
+    "review": "Connectivity on a spiritual level only."
+  },
+  {
+    "first_name": "Ava",
+    "last_initial": "A.",
+    "city": "Columbus, OH",
+    "sentiment": "negative",
+    "review": "Speed test more disappointing than my screen time reports."
+  },
+  {
+    "first_name": "James",
+    "last_initial": "G.",
+    "city": "San Francisco, CA",
+    "sentiment": "negative",
+    "review": "I have 5 bars but they\u2019re decorative apparently."
+  },
+  {
+    "first_name": "Elijah",
+    "last_initial": "R.",
+    "city": "Austin, TX",
+    "sentiment": "negative",
+    "review": "T-Mobile loading slower than movie theater nachos."
+  },
+  {
+    "first_name": "Evelyn",
+    "last_initial": "C.",
+    "city": "Dallas, TX",
+    "sentiment": "negative",
+    "review": "Network so unstable it's giving dramatic plot twists."
+  },
+  {
+    "first_name": "Emma",
+    "last_initial": "K.",
+    "city": "San Antonio, TX",
+    "sentiment": "negative",
+    "review": "Call drops more frequent than my motivation."
+  },
+  {
+    "first_name": "James",
+    "last_initial": "R.",
+    "city": "Washington, DC",
+    "sentiment": "negative",
+    "review": "Data speeds slower than plot development in a Netflix filler episode."
+  },
+  {
+    "first_name": "Ella",
+    "last_initial": "N.",
+    "city": "Charlotte, NC",
+    "sentiment": "negative",
+    "review": "Customer support giving me side quest energy."
+  },
+  {
+    "first_name": "Isabella",
+    "last_initial": "A.",
+    "city": "Phoenix, AZ",
+    "sentiment": "negative",
+    "review": "If slow internet was a sport I\u2019d be undefeated."
+  },
+  {
+    "first_name": "Emma",
+    "last_initial": "Y.",
+    "city": "Austin, TX",
+    "sentiment": "negative",
+    "review": "At this point my signal needs therapy."
+  },
+  {
+    "first_name": "Mia",
+    "last_initial": "H.",
+    "city": "Washington, DC",
+    "sentiment": "negative",
+    "review": "T-Mobile data refusing to participate in society."
+  },
+  {
+    "first_name": "Emma",
+    "last_initial": "S.",
+    "city": "San Francisco, CA",
+    "sentiment": "negative",
+    "review": "I don\u2019t need 5G Ultra, I need 5G that works."
+  },
+  {
+    "first_name": "Sophia",
+    "last_initial": "N.",
+    "city": "Columbus, OH",
+    "sentiment": "negative",
+    "review": "Loading icon gonna be on my tombstone at this rate."
+  },
+  {
+    "first_name": "Evelyn",
+    "last_initial": "D.",
+    "city": "New York, NY",
+    "sentiment": "negative",
+    "review": "Not sure if it's congestion or emotional damage at this point."
+  },
+  {
+    "first_name": "Isabella",
+    "last_initial": "B.",
+    "city": "San Francisco, CA",
+    "sentiment": "negative",
+    "review": "Why won't your network stay connected? And why can I roam on the super strong ATT network while your network is down?  I'm pretty sure I was promised unlimited domestic roaming when I signed up."
+  },
+  {
+    "first_name": "Sophia",
+    "last_initial": "S.",
+    "city": "San Francisco, CA",
+    "sentiment": "neutral",
+    "review": "Thinking about upgrading but still comparing plans."
+  },
+  {
+    "first_name": "Evelyn",
+    "last_initial": "A.",
+    "city": "Dallas, TX",
+    "sentiment": "neutral",
+    "review": "T-Mobile bill just hit, looks normal."
+  },
+  {
+    "first_name": "Amelia",
+    "last_initial": "F.",
+    "city": "Washington, DC",
+    "sentiment": "neutral",
+    "review": "Coverage map says 5G here but I\u2019ll test later."
+  },
+  {
+    "first_name": "Lucas",
+    "last_initial": "H.",
+    "city": "Chicago, IL",
+    "sentiment": "neutral",
+    "review": "Got a T-Mobile notification, reading it later."
+  },
+  {
+    "first_name": "Ethan",
+    "last_initial": "Q.",
+    "city": "Los Angeles, CA",
+    "sentiment": "neutral",
+    "review": "Wondering if roaming is still free internationally."
+  },
+  {
+    "first_name": "Alexander",
+    "last_initial": "D.",
+    "city": "Phoenix, AZ",
+    "sentiment": "neutral",
+    "review": "Might switch plans, still deciding."
+  },
+  {
+    "first_name": "Alexander",
+    "last_initial": "L.",
+    "city": "San Antonio, TX",
+    "sentiment": "neutral",
+    "review": "T-Mobile or WiFi calling today? Undecided."
+  },
+  {
+    "first_name": "Noah",
+    "last_initial": "Z.",
+    "city": "Fort Worth, TX",
+    "sentiment": "neutral",
+    "review": "New phone, same carrier. Life moves on."
+  },
+  {
+    "first_name": "Ethan",
+    "last_initial": "E.",
+    "city": "Seattle, WA",
+    "sentiment": "neutral",
+    "review": "Looking at my data usage like \u2018interesting.\u2019"
+  },
+  {
+    "first_name": "Noah",
+    "last_initial": "Y.",
+    "city": "Columbus, OH",
+    "sentiment": "neutral",
+    "review": "Curious how the new plans compare this year."
+  },
+  {
+    "first_name": "Elijah",
+    "last_initial": "A.",
+    "city": "Dallas, TX",
+    "sentiment": "neutral",
+    "review": "Waiting for a reason to upgrade honestly."
+  },
+  {
+    "first_name": "Benjamin",
+    "last_initial": "E.",
+    "city": "Washington, DC",
+    "sentiment": "neutral",
+    "review": "Phone works. Bill paid. No drama. Nice."
+  },
+  {
+    "first_name": "James",
+    "last_initial": "D.",
+    "city": "Charlotte, NC",
+    "sentiment": "neutral",
+    "review": "Monthly payment \u2705 Service exists \u2705 That\u2019s all I check."
+  },
+  {
+    "first_name": "Ella",
+    "last_initial": "G.",
+    "city": "Phoenix, AZ",
+    "sentiment": "neutral",
+    "review": "No complaints, no praise, just vibes."
+  },
+  {
+    "first_name": "Elijah",
+    "last_initial": "I.",
+    "city": "Chicago, IL",
+    "sentiment": "neutral",
+    "review": "T-Mobile behaving today, appreciate that."
+  },
+  {
+    "first_name": "Henry",
+    "last_initial": "P.",
+    "city": "Philadelphia, PA",
+    "sentiment": "neutral",
+    "review": "Considering the Magenta plan but still thinking."
+  },
+  {
+    "first_name": "Liam",
+    "last_initial": "L.",
+    "city": "Denver, CO",
+    "sentiment": "neutral",
+    "review": "Data usage lower than expected this month."
+  },
+  {
+    "first_name": "Emma",
+    "last_initial": "P.",
+    "city": "Austin, TX",
+    "sentiment": "neutral",
+    "review": "Bill paid automatically, love that for me."
+  },
+  {
+    "first_name": "Isabella",
+    "last_initial": "C.",
+    "city": "Chicago, IL",
+    "sentiment": "neutral",
+    "review": "Another month of phone service achieved."
+  },
+  {
+    "first_name": "Emma",
+    "last_initial": "G.",
+    "city": "Denver, CO",
+    "sentiment": "neutral",
+    "review": "Coverage is coverage, nothing wild to report."
+  },
+  {
+    "first_name": "Noah",
+    "last_initial": "Z.",
+    "city": "New York, NY",
+    "sentiment": "neutral",
+    "review": "No news is good news with phone service."
+  },
+  {
+    "first_name": "Sophia",
+    "last_initial": "R.",
+    "city": "Phoenix, AZ",
+    "sentiment": "neutral",
+    "review": "Phone bill paid, life continues."
+  },
+  {
+    "first_name": "Emma",
+    "last_initial": "C.",
+    "city": "Houston, TX",
+    "sentiment": "neutral",
+    "review": "Shoutout to auto-pay for doing the heavy lifting."
+  },
+  {
+    "first_name": "Isabella",
+    "last_initial": "N.",
+    "city": "Philadelphia, PA",
+    "sentiment": "neutral",
+    "review": "T-Mobile app opened. I saw numbers. I moved on."
+  },
+  {
+    "first_name": "Amelia",
+    "last_initial": "K.",
+    "city": "Charlotte, NC",
+    "sentiment": "neutral",
+    "review": "Speed test later maybe, no urgency."
+  },
+  {
+    "first_name": "Amelia",
+    "last_initial": "M.",
+    "city": "San Jose, CA",
+    "sentiment": "neutral",
+    "review": "Curious if 5G actually drains more battery."
+  },
+  {
+    "first_name": "Elijah",
+    "last_initial": "I.",
+    "city": "San Jose, CA",
+    "sentiment": "neutral",
+    "review": "T-Mobile reminder text received, mentally noted."
+  },
+  {
+    "first_name": "Harper",
+    "last_initial": "W.",
+    "city": "San Jose, CA",
+    "sentiment": "neutral",
+    "review": "Not switching, not hyping. Just existing."
+  },
+  {
+    "first_name": "Evelyn",
+    "last_initial": "G.",
+    "city": "San Diego, CA",
+    "sentiment": "neutral",
+    "review": "Service is service. Carry on."
+  },
+  {
+    "first_name": "Oliver",
+    "last_initial": "V.",
+    "city": "Dallas, TX",
+    "sentiment": "neutral",
+    "review": "Mentally compiling plan comparison charts."
+  },
+  {
+    "first_name": "Benjamin",
+    "last_initial": "Z.",
+    "city": "Chicago, IL",
+    "sentiment": "neutral",
+    "review": "Considering international add-on for upcoming travel."
+  },
+  {
+    "first_name": "Ethan",
+    "last_initial": "R.",
+    "city": "Columbus, OH",
+    "sentiment": "neutral",
+    "review": "Not judging, just observing coverage bars."
+  },
+  {
+    "first_name": "Sophia",
+    "last_initial": "T.",
+    "city": "Houston, TX",
+    "sentiment": "neutral",
+    "review": "Another autopay survived."
+  },
+  {
+    "first_name": "Mia",
+    "last_initial": "Z.",
+    "city": "Dallas, TX",
+    "sentiment": "neutral",
+    "review": "Phone service functioning as intended today."
+  },
+  {
+    "first_name": "Henry",
+    "last_initial": "Q.",
+    "city": "Denver, CO",
+    "sentiment": "neutral",
+    "review": "Debating if 5G UC really matters."
+  },
+  {
+    "first_name": "Liam",
+    "last_initial": "H.",
+    "city": "Washington, DC",
+    "sentiment": "neutral",
+    "review": "Might call support later, might not."
+  },
+  {
+    "first_name": "Mia",
+    "last_initial": "W.",
+    "city": "Columbus, OH",
+    "sentiment": "neutral",
+    "review": "No major updates from T-Mobile today."
+  },
+  {
+    "first_name": "Ava",
+    "last_initial": "B.",
+    "city": "Houston, TX",
+    "sentiment": "neutral",
+    "review": "Average carrier experience so far."
+  },
+  {
+    "first_name": "Ethan",
+    "last_initial": "E.",
+    "city": "San Diego, CA",
+    "sentiment": "neutral",
+    "review": "Considering family plan math."
+  }
+]

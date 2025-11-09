@@ -178,7 +178,7 @@ neutral = [
 ]
 
 
-FILE_PATH = "client/data/raw/generated_tweets.csv"
+FILE_PATH = "client/data/raw/tmobile_reviews_full.json"
 
 seen_messages = set()
 
