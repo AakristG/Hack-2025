@@ -3,7 +3,9 @@ import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import { FeedbackStream, FeedbackItem } from './FeedbackStream';
 import { SentimentAnalysis } from './SentimentAnalysis';
-import ParticleBackground from './ParticleBackground';
+import { IssueDetection } from './IssueDetection';
+import { CustomerAppreciation } from './CustomerAppreciation';
+import { ActionableInsights } from './ActionableInsights';
 
 const Dashboard: React.FC = () => {
   const [isLive, setIsLive] = useState<boolean>(true);
@@ -22,8 +24,7 @@ const Dashboard: React.FC = () => {
 
   return (
     <div className="min-h-screen relative overflow-hidden bg-gradient-to-br from-purple-500 to-pink-500 p-5">
-      {/* Particle Animation Background */}
-      <ParticleBackground />
+      {/* <ParticleBackground /> */ }
       
       {/* Content */}
       <div className="relative z-10">
@@ -41,29 +42,49 @@ const Dashboard: React.FC = () => {
         </header>
 
       <main className="max-w-7xl mx-auto">
-        {/* Real-Time Sentiment Analysis */}
+        {/* Real-Time Sentiment Analysis and Issue Detection */}
         <div className="mb-8">
-          <SentimentAnalysis feedbackItems={feedbackItems} isLive={isLive} />
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+            <div className="lg:col-span-2">
+              <SentimentAnalysis feedbackItems={feedbackItems} isLive={isLive} />
+            </div>
+            <div className="space-y-6">
+              <IssueDetection feedbackItems={feedbackItems} isLive={isLive} />
+              <CustomerAppreciation feedbackItems={feedbackItems} />
+            </div>
+          </div>
         </div>
 
-        {/* Live Feedback Stream */}
-        <div className="bg-white rounded-xl p-8 mb-8 shadow-lg">
-          <div className="flex items-center justify-between mb-4">
-            <h2 className="text-gray-800 text-2xl border-b-2 border-purple-600 pb-2.5">
-              Twitter Feedback Stream
-            </h2>
-            <button
-              onClick={() => setIsLive(!isLive)}
-              className={`px-4 py-2 rounded-lg font-medium transition-colors ${
-                isLive
-                  ? 'bg-green-500 text-white hover:bg-green-600'
-                  : 'bg-gray-300 text-gray-700 hover:bg-gray-400'
-              }`}
-            >
-              {isLive ? '● Live' : '○ Paused'}
-            </button>
+        {/* Live Feedback Stream and Actionable Insights Side by Side */}
+        <div className="mb-8">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+            {/* Twitter Feedback Stream */}
+            <div className="bg-white rounded-xl p-8 shadow-lg h-[600px] flex flex-col">
+              <div className="flex items-center justify-between mb-4 flex-shrink-0">
+                <h2 className="text-gray-800 text-2xl border-b-2 border-purple-600 pb-2.5">
+                  Twitter Feedback Stream
+                </h2>
+                <button
+                  onClick={() => setIsLive(!isLive)}
+                  className={`px-4 py-2 rounded-lg font-medium transition-colors ${
+                    isLive
+                      ? 'bg-green-500 text-white hover:bg-green-600'
+                      : 'bg-gray-300 text-gray-700 hover:bg-gray-400'
+                  }`}
+                >
+                  {isLive ? '● Live' : '○ Paused'}
+                </button>
+              </div>
+              <div className="flex-1 min-h-0">
+                <FeedbackStream isLive={isLive} onFeedbackUpdate={handleFeedbackUpdate} />
+              </div>
+            </div>
+
+            {/* Actionable Insights */}
+            <div className="h-[600px]">
+              <ActionableInsights feedbackItems={feedbackItems} />
+            </div>
           </div>
-          <FeedbackStream isLive={isLive} onFeedbackUpdate={handleFeedbackUpdate} />
         </div>
       </main>
       </div>

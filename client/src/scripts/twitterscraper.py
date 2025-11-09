@@ -54,7 +54,6 @@ FILE_PATH = "client/data/raw/generated_tweets.csv"
 with open(FILE_PATH, "w", newline="", encoding="utf-8") as f:
     writer = csv.writer(f)
 
-    # ✅ TwitterScraper-like header
     writer.writerow(["date", "user", "tweet", "likeCount", "retweetCount", "replyCount", "quoteCount", "id", "lang", "source"])
 
     for _ in range(NUM_TWEETS):
@@ -75,5 +74,3 @@ with open(FILE_PATH, "w", newline="", encoding="utf-8") as f:
         source = random.choice(sources)
 
         writer.writerow([date, user, text, likes, rts, replies, quotes, tweet_id, lang, source])
-
-print("✅ Twitter-style dataset generated:", FILE_PATH)

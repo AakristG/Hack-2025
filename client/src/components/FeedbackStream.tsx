@@ -1,7 +1,9 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useMemo, useCallback } from 'react';
 import { Card } from './ui/card';
 import { Badge } from './ui/badge';
 import { MessageSquare, Smile, Meh, Frown, MapPin, Clock } from 'lucide-react';
+import axios from 'axios';
+import tmobileReviewsData from '../data/raw/tmobile_reviews_full.json';
 
 export interface FeedbackItem {
   id: string;
@@ -19,77 +21,276 @@ interface FeedbackStreamProps {
   onFeedbackUpdate?: (items: FeedbackItem[]) => void;
 }
 
-const feedbackTemplates = [
-  { message: "5G speeds are incredible! Downloaded a movie in seconds.", sentiment: 'positive' as const, category: 'Network Speed', score: 95 },
-  { message: "Customer service was very helpful with my billing question.", sentiment: 'positive' as const, category: 'Customer Service', score: 88 },
-  { message: "New coverage in my area is amazing, no more dead zones!", sentiment: 'positive' as const, category: 'Coverage', score: 92 },
-  { message: "App is okay but could use better navigation.", sentiment: 'neutral' as const, category: 'Mobile App', score: 65 },
-  { message: "Experiencing slow data speeds during peak hours.", sentiment: 'negative' as const, category: 'Network Speed', score: 35 },
-  { message: "Love the Tuesday deals and perks!", sentiment: 'positive' as const, category: 'Promotions', score: 90 },
-  { message: "Hold times on support calls are too long.", sentiment: 'negative' as const, category: 'Customer Service', score: 40 },
-  { message: "International roaming worked perfectly on my trip.", sentiment: 'positive' as const, category: 'Roaming', score: 93 },
-  { message: "Billing statement is confusing.", sentiment: 'neutral' as const, category: 'Billing', score: 55 },
-  { message: "Network outage lasted 2 hours in downtown area.", sentiment: 'negative' as const, category: 'Network Reliability', score: 25 },
-  { message: "Unlimited plan is great value for my family.", sentiment: 'positive' as const, category: 'Plans', score: 87 },
-  { message: "Store staff was knowledgeable and friendly.", sentiment: 'positive' as const, category: 'Retail Experience', score: 91 },
-];
+interface ReviewData {
+  name: string;
+  location: string;
+  text: string;
+  sentiment: 'pos' | 'neu' | 'neg';
+  tags: string[];
+  likeCount: number;
+  retweetCount: number;
+  replyCount: number;
+}
 
-const locations = ['Dallas', 'Austin', 'Houston', 'San Antonio', 'Fort Worth', 'El Paso'];
-const userNames = ['Sarah M.', 'John D.', 'Emily R.', 'Michael T.', 'Jessica L.', 'David K.', 'Amanda P.', 'Chris W.'];
+// Convert sentiment from JSON format to component format (fallback)
+const convertSentiment = (sentiment: string): 'positive' | 'neutral' | 'negative' => {
+  switch (sentiment) {
+    case 'pos':
+      return 'positive';
+    case 'neu':
+      return 'neutral';
+    case 'neg':
+      return 'negative';
+    default:
+      return 'neutral';
+  }
+};
+
+// Calculate score based on sentiment and engagement out of 5
+const calculateScore = (sentiment: 'positive' | 'neutral' | 'negative', review: ReviewData): number => {
+  const baseScore = sentiment === 'positive' ? 4 : sentiment === 'neutral' ? 2.5 : 1;
+  
+  // Add engagement bonus (normalized to 0-1 points)
+  const totalEngagement = review.likeCount + review.retweetCount * 2 + review.replyCount * 3;
+  const engagementBonus = Math.min(1, Math.log10(totalEngagement + 1) * 0.25);
+  
+  return Math.min(5, Math.max(0, Math.round((baseScore + engagementBonus) * 10) / 10));
+};
+
+// Analyze sentiment using Gemini API
+const analyzeSentimentWithGemini = async (text: string): Promise<'positive' | 'neutral' | 'negative'> => {
+  try {
+    // get the Gemini API token
+    const token = localStorage.getItem('token');
+    // pass your text to the 
+    const response = await axios.post(
+      '/api/gemini/sentiment',
+      { text },
+      {
+        headers: {
+          'Authorization': `Bearer ${token}`,
+          'Content-Type': 'application/json'
+        }
+      }
+    );
+    return response.data.sentiment;
+  } catch (error) {
+    // catch error so program doesn't crash
+    console.error('Error analyzing sentiment with Gemini:', error);
+    // Fallback: try to determine sentiment from text keywords
+    const lowerText = text.toLowerCase();
+    const positiveWords = ['great', 'excellent', 'amazing', 'love', 'good', 'awesome', 'perfect', 'best', 'happy', 'satisfied'];
+    const negativeWords = ['bad', 'terrible', 'awful', 'hate', 'worst', 'poor', 'disappointed', 'frustrated', 'slow', 'broken'];
+    
+    const positiveCount = positiveWords.filter(word => lowerText.includes(word)).length;
+    const negativeCount = negativeWords.filter(word => lowerText.includes(word)).length;
+    
+    if (positiveCount > negativeCount) return 'positive';
+    if (negativeCount > positiveCount) return 'negative';
+    return 'neutral';
+  }
+};
+
+// Analyze category/tag using Gemini API
+const analyzeCategoryWithGemini = async (text: string): Promise<string> => {
+  try {
+    const token = localStorage.getItem('token');
+    const response = await axios.post(
+      '/api/gemini/category',
+      { text },
+      {
+        headers: {
+          'Authorization': `Bearer ${token}`,
+          'Content-Type': 'application/json'
+        }
+      }
+    );
+    return response.data.category;
+  } catch (error) {
+    console.error('Error analyzing category with Gemini:', error);
+    return 'General';
+  }
+};
+
+// Format category name (capitalize first letter of each word)
+const formatCategory = (tags: string[]): string => {
+  if (!tags || tags.length === 0) return 'General';
+  return tags[0]
+    .split(' ')
+    .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+    .join(' ');
+};
+
+// Extended type for internal use
+type FeedbackItemWithReview = FeedbackItem & { originalReview: ReviewData };
 
 export function FeedbackStream({ isLive, onFeedbackUpdate }: FeedbackStreamProps) {
-  const [feedbackItems, setFeedbackItems] = useState<FeedbackItem[]>([]);
+  const [feedbackItems, setFeedbackItems] = useState<FeedbackItemWithReview[]>([]);
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const [analyzingSentiments, setAnalyzingSentiments] = useState<Set<string>>(new Set());
 
-  useEffect(() => {
-    // Generate initial feedback
-    const initial: FeedbackItem[] = [];
-    for (let i = 0; i < 10; i++) {
-      const template = feedbackTemplates[Math.floor(Math.random() * feedbackTemplates.length)];
-      initial.push({
-        id: `initial-${i}`,
-        user: userNames[Math.floor(Math.random() * userNames.length)],
-        message: template.message,
-        sentiment: template.sentiment,
-        category: template.category,
-        location: locations[Math.floor(Math.random() * locations.length)],
-        timestamp: new Date(Date.now() - Math.random() * 3600000),
-        score: template.score,
+  // Convert JSON data to FeedbackItem format (without sentiment initially)
+  const rawReviews = useMemo(() => {
+    const reviews = tmobileReviewsData as ReviewData[];
+    return reviews.map((review, index) => ({
+      id: `review-${index}`,
+      user: review.name,
+      message: review.text,
+      sentiment: convertSentiment(review.sentiment) as 'positive' | 'neutral' | 'negative', // Temporary fallback
+      category: formatCategory(review.tags),
+      location: review.location,
+      timestamp: new Date(Date.now() - (reviews.length - index) * 60000),
+      score: 0, // Temporary score, will be updated after sentiment analysis
+      originalReview: review, // Keep original review data for score calculation
+    })) as FeedbackItemWithReview[];
+  }, []);
+
+  // Function to update sentiment and category for a feedback item
+  const updateItemSentiment = useCallback(async (itemId: string, text: string, originalReview: ReviewData) => {
+    if (analyzingSentiments.has(itemId)) return; // Already analyzing
+    
+    setAnalyzingSentiments(prev => new Set(prev).add(itemId));
+    
+    try {
+      console.log(`[AI] Analyzing sentiment and category for item ${itemId}`);
+      
+      // Analyze both sentiment and category in parallel for better performance
+      const [geminiSentiment, geminiCategory] = await Promise.all([
+        analyzeSentimentWithGemini(text),
+        analyzeCategoryWithGemini(text)
+      ]);
+      
+      const newScore = calculateScore(geminiSentiment, originalReview);
+      
+      setFeedbackItems(prev => {
+        const updated = prev.map(item => {
+          if (item.id === itemId) {
+            const itemWithReview = item as FeedbackItemWithReview;
+            const { originalReview, ...itemWithoutReview } = itemWithReview;
+            return { 
+              ...itemWithoutReview, 
+              sentiment: geminiSentiment, 
+              category: geminiCategory,
+              score: newScore 
+            };
+          }
+          return item;
+        });
+        if (onFeedbackUpdate) {
+          onFeedbackUpdate(updated);
+        }
+        // Keep originalReview in state for future updates
+        return prev.map(item => {
+          if (item.id === itemId) {
+            const itemWithReview = item as FeedbackItemWithReview;
+            return { 
+              ...itemWithReview, 
+              sentiment: geminiSentiment, 
+              category: geminiCategory,
+              score: newScore 
+            };
+          }
+          return item;
+        });
+      });
+    } catch (error) {
+      console.error(`Error updating sentiment/category for item ${itemId}:`, error);
+    } finally {
+      setAnalyzingSentiments(prev => {
+        const newSet = new Set(prev);
+        newSet.delete(itemId);
+        return newSet;
       });
     }
+  }, [analyzingSentiments, onFeedbackUpdate]);
+
+  // TODO: Choose how much data we want to load in feedback stream upon loading
+  useEffect(() => {
+    const initialCount = 50;
+    const shuffled = [...rawReviews].sort(() => Math.random() - 0.5);
+    const initial = shuffled.slice(0, initialCount).map((item, idx) => {
+      // Calculate score for initial items using fallback sentiment
+      const score = item.originalReview ? calculateScore(item.sentiment, item.originalReview) : 0;
+      return {
+        ...item,
+        score,
+        timestamp: new Date(Date.now() - (initialCount - idx) * 60000), // Recent timestamps
+      };
+    });
+    
     const sorted = initial.sort((a, b) => b.timestamp.getTime() - a.timestamp.getTime());
     setFeedbackItems(sorted);
+    setCurrentIndex(initialCount);
+    
     if (onFeedbackUpdate) {
-      onFeedbackUpdate(sorted);
+      // Remove originalReview before passing to callback
+      const sortedWithoutReview = sorted.map(({ originalReview, ...item }) => item);
+      onFeedbackUpdate(sortedWithoutReview);
     }
+
+    // Analyze initial items with Gemini for better accuracy (batch process)
+    // Analyze first 10 items immediately, then continue with rest
+    const analyzeInitialItems = async () => {
+      const itemsToAnalyze = sorted.slice(0, 10); // Analyze first 10 for faster initial detection
+      for (const item of itemsToAnalyze) {
+        if (item.originalReview) {
+          // Use updateItemSentiment from the current scope
+          await updateItemSentiment(item.id, item.message, item.originalReview);
+          // Small delay to avoid overwhelming the API
+          await new Promise(resolve => setTimeout(resolve, 500));
+        }
+      }
+    };
+    
+    // Start analyzing initial items after a short delay
+    setTimeout(analyzeInitialItems, 1000);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, []); // Only run once on mount
 
   useEffect(() => {
     if (!isLive) return;
 
     const interval = setInterval(() => {
-      const template = feedbackTemplates[Math.floor(Math.random() * feedbackTemplates.length)];
-      const newFeedback: FeedbackItem = {
-        id: Date.now().toString(),
-        user: userNames[Math.floor(Math.random() * userNames.length)],
-        message: template.message,
-        sentiment: template.sentiment,
-        category: template.category,
-        location: locations[Math.floor(Math.random() * locations.length)],
+      // Cycle through the reviews data
+      const reviewIndex = currentIndex % rawReviews.length;
+      const rawReview = rawReviews[reviewIndex];
+      
+      const newFeedback: FeedbackItemWithReview = {
+        id: `review-${Date.now()}-${reviewIndex}`,
+        user: rawReview.user,
+        message: rawReview.message,
+        sentiment: rawReview.sentiment, // Temporary, will be updated by sGemini
+        category: rawReview.category,
+        location: rawReview.location,
         timestamp: new Date(),
-        score: template.score,
+        score: 0, // Temporary, will be updated after sentiment analysis
+        originalReview: rawReview.originalReview,
       };
+      
+      setCurrentIndex((prev) => (prev + 1) % rawReviews.length);
+      
       setFeedbackItems((prev) => {
-        const updated = [newFeedback, ...prev.slice(0, 49)];
+        const { originalReview, ...feedbackWithoutReview } = newFeedback;
+        // Keep all previous items, no limit
+        const updated = [feedbackWithoutReview, ...prev];
         if (onFeedbackUpdate) {
           onFeedbackUpdate(updated);
         }
-        return updated;
+        // Store with originalReview for sentiment analysis
+        return [newFeedback, ...prev.map(item => {
+          const itemWithReview = item as FeedbackItemWithReview;
+          return itemWithReview;
+        })];
       });
+
+      // Analyze sentiment with Gemini for the new feedback
+      if (rawReview.originalReview) {
+        updateItemSentiment(newFeedback.id, newFeedback.message, rawReview.originalReview);
+      }
     }, 6000);
 
     return () => clearInterval(interval);
-  }, [isLive, onFeedbackUpdate]);
+  }, [isLive, onFeedbackUpdate, currentIndex, rawReviews, updateItemSentiment]);
 
   const getSentimentIcon = (sentiment: string) => {
     switch (sentiment) {
@@ -125,7 +326,7 @@ export function FeedbackStream({ isLive, onFeedbackUpdate }: FeedbackStreamProps
   };
 
   return (
-    <Card className="bg-white p-6 h-[600px] flex flex-col overflow-hidden">
+    <Card className="bg-white p-6 h-full flex flex-col overflow-hidden">
       <div className="flex items-center justify-between mb-4 flex-shrink-0">
         <div className="flex items-center gap-2">
           <MessageSquare className="w-5 h-5 text-purple-600" />
@@ -156,7 +357,7 @@ export function FeedbackStream({ isLive, onFeedbackUpdate }: FeedbackStreamProps
                     {item.category}
                   </Badge>
                 </div>
-                <span className="text-xs text-gray-500">{item.score}/100</span>
+                <span className="text-xs text-gray-500">{item.score.toFixed(1)}/5</span>
               </div>
               <p className="text-sm text-gray-700 mb-3">{item.message}</p>
               <div className="flex items-center gap-4 text-xs text-gray-500">

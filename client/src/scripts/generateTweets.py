@@ -34,6 +34,7 @@ names = [
     "Lily Turner","Nora Evans","Ian Carter"
 ]
 
+# location data from AI
 locations = [
     "Seattle, WA", "Dallas, TX", "Austin, TX", "Houston, TX", "San Antonio, TX",
     "New York, NY", "Brooklyn, NY", "Chicago, IL", "Los Angeles, CA", "San Diego, CA",
@@ -60,7 +61,7 @@ tags_pool = [
 ]
 
 def generate_email(full_name: str) -> str:
-    """Generate an email like 'firstlast123@gmail.com' from a full name."""
+    # Generate an email like 'firstlast123@gmail.com' from a full name
     parts = full_name.split()
     if len(parts) == 1:
         first = parts[0]
@@ -77,6 +78,7 @@ def generate_email(full_name: str) -> str:
 
     return f"{base}{number}@{domain}"
 
+# Get all the data from Gen AI
 positive = [
     "Honestly blown away by the 5G speeds today, feels unreal!",
     "T-Mobile came in clutch, best carrier experience I’ve ever had.",
@@ -230,9 +232,9 @@ neutral = [
     "Considering family plan math."
 ]
 
-SCRIPT_DIR = Path(__file__).resolve().parent          # .../client/src/scripts
-CLIENT_ROOT = SCRIPT_DIR.parent.parent                # .../client
-DATA_DIR = CLIENT_ROOT / "data" / "raw"               # .../client/data/raw
+SCRIPT_DIR = Path(__file__).resolve().parent       
+CLIENT_ROOT = SCRIPT_DIR.parent.parent              
+DATA_DIR = CLIENT_ROOT / "data" / "raw"              
 
 # Make sure the directory exists
 DATA_DIR.mkdir(parents=True, exist_ok=True)
@@ -245,6 +247,8 @@ tweets = []
 count = 0
 while count < NUM_TWEETS:
     total = 1
+
+    # We wanted the weights to be different each time so there are random chances of different types of tweets coming through
     positiveWeight = random.uniform(0, total)
     neutralWeight = random.uniform(0, total - positiveWeight)
     negativeWeight = total - (positiveWeight + neutralWeight)
@@ -289,7 +293,7 @@ while count < NUM_TWEETS:
         "replyCount": replies,
         "source": source,
         "sentiment": sentiment,
-        "tags": [random.choice(tags_pool)]  # assuming you already changed this
+        "tags": [random.choice(tags_pool)]  # i think you can make this a empty string
     }
 
 
@@ -299,5 +303,3 @@ while count < NUM_TWEETS:
 # Write to JSON file
 with open(FILE_PATH, "w", encoding="utf-8") as f:
     json.dump(tweets, f, indent=2, ensure_ascii=False)
-
-print(f"Generated {count} UNIQUE tweets and saved to {FILE_PATH}")

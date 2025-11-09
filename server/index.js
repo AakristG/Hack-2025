@@ -14,11 +14,14 @@ process.emitWarning = function(warning, ...args) {
 const express = require('express');
 const cors = require('cors');
 const path = require('path');
-require('dotenv').config();
+const { loadEnv } = require('./utils/env-loader');
+
+// Load environment variables
+loadEnv();
 
 const satisfactionRoutes = require('./routes/satisfaction');
 const authRoutes = require('./routes/auth');
-const nemotronRoutes = require('./routes/nemotron');
+const geminiRoutes = require('./routes/gemini');
 const { initDatabase } = require('./database/init');
 
 const app = express();
@@ -34,7 +37,7 @@ initDatabase()
     // Routes
     app.use('/api/auth', authRoutes);
     app.use('/api/satisfaction', satisfactionRoutes);
-    app.use('/api/nemotron', nemotronRoutes);
+    app.use('/api/gemini', geminiRoutes);
 
     // Health check
     app.get('/api/health', (req, res) => {

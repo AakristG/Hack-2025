@@ -121,9 +121,19 @@ The application uses SQLite for simplicity. The database file (`database.sqlite`
 Create a `.env` file in the root directory (optional):
 
 ```
-PORT=5000
+PORT=5001
 JWT_SECRET=your-secret-key-change-in-production
+GEMINI_API_KEY=your-gemini-api-key-here
+GEMINI_MODEL=gemini-1.5-flash
 ```
+
+**Required:**
+- `GEMINI_API_KEY` - Your Google Gemini API key (get it from [Google AI Studio](https://makersuite.google.com/app/apikey))
+
+**Optional:**
+- `PORT` - Server port (default: 5001)
+- `JWT_SECRET` - Secret key for JWT tokens (default: 'your-secret-key-change-in-production')
+- `GEMINI_MODEL` - Gemini model to use (default: 'gemini-1.5-flash'). Options: 'gemini-1.5-flash' (faster, cheaper) or 'gemini-1.5-pro' (more capable)
 
 ## License
 
