@@ -1,26 +1,88 @@
 import random
 import json
+from pathlib import Path
 from datetime import datetime, timedelta
 
 # Settings
 NUM_TWEETS = 1000
-START_DATE = datetime(2015, 1, 1)
-END_DATE = datetime.now()
 
 def random_date():
-    delta = END_DATE - START_DATE
-    random_days = random.randint(0, delta.days)
-    random_seconds = random.randint(0, 86400)
-    d = START_DATE + timedelta(days=random_days, seconds=random_seconds)
-    return d.strftime("%Y-%m-%d %H:%M:%S+00:00")
-
-def random_tweet_id():
-    return random.randint(10**15, 10**16 - 1)
+    """Return a random date (no time) between START_DATE and END_DATE."""
+    delta_days = (END_DATE - START_DATE).days
+    random_days = random.randint(0, delta_days)
+    d = START_DATE + timedelta(days=random_days)
+    return d.strftime("%Y-%m-%d")
 
 sources = ["Twitter for iPhone", "Twitter for Android", "Twitter Web App"]
 mentions = ["@TMobile", "@TMobileHelp", "@TMobileBusiness", ""]
 hashtags = ["#TMobile", "#T-Mobile", ""]
 keywords = ["T-Mobile", "TMobile"]
+
+names = [
+    "Aiden Rivera","Alex Johnson","Alice Nguyen","Amir Patel","Andrew Lopez","Angela Carter",
+    "Anna Morales","Ashley Kim","Brandon Scott","Brianna Lee","Caleb Wright","Camila Torres",
+    "Carlos Ramirez","Catherine Brooks","Charlotte Evans","Chloe Turner","Christian Hughes",
+    "Christopher Ward","Daniel Foster","David Green","Destiny Allen","Diego Flores",
+    "Dominic Parker","Dylan Cooper","Eleanor Price","Elena Alvarez","Elizabeth Howard",
+    "Emily Ross","Emma Phillips","Ethan Bennett","Evan Mitchell","Faith Simmons",
+    "Gabriel Peterson","Grace Murphy","Hannah Bailey","Hailey Adams","Henry Kelly",
+    "Isabella Rivera","Jack Morgan","Jackson Reed","Jacob Hughes","Jasmine Ortiz",
+    "Jason Bryant","Jayden Coleman","Jillian Fisher","Jonathan Powell","Jordan West",
+    "Jose Martinez","Juan Gonzalez","Julia Edwards","Kaitlyn Barnes","Katherine Russell",
+    "Kayla Diaz","Kevin Long","Liam Stewart","Logan King","Lucas Morris","Madison Rogers",
+    "Maria Perry","Mason Cook","Matthew Bell","Maya Richardson","Megan Watson",
+    "Mia Patterson","Michelle Chavez","Natalie Griffin","Nathan Rivera","Nicole Simmons",
+    "Noah Price","Olivia Sanders","Owen Butler","Paige Gonzales","Patrick Barnes",
+    "Rachel Coleman","Riley Foster","Robert Jenkins","Ryan Hayes","Samantha Stone",
+    "Samuel Boyd","Sara Little","Sarah Warren","Savannah Ford","Sebastian Castillo",
+    "Sophia Lopez","Stella Cruz","Steven Shaw","Taylor Brooks","Thomas Hart","Trinity West",
+    "Tyler Jenkins","Vanessa Ruiz","Victoria Palmer","Vincent Ortiz","William Hughes",
+    "Xavier Collins","Zachary Hill","Zoe Martinez","Lucas Ramirez","Adrian Scott",
+    "Lily Turner","Nora Evans","Ian Carter"
+]
+
+locations = [
+    "Seattle, WA", "Dallas, TX", "Austin, TX", "Houston, TX", "San Antonio, TX",
+    "New York, NY", "Brooklyn, NY", "Chicago, IL", "Los Angeles, CA", "San Diego, CA",
+    "San Jose, CA", "San Francisco, CA", "Portland, OR", "Denver, CO", "Boulder, CO",
+    "Miami, FL", "Orlando, FL", "Tampa, FL", "Atlanta, GA", "Phoenix, AZ",
+    "Las Vegas, NV", "Salt Lake City, UT", "Minneapolis, MN", "St. Paul, MN",
+    "Detroit, MI", "Cleveland, OH", "Columbus, OH", "Cincinnati, OH",
+    "Kansas City, MO", "Oklahoma City, OK", "Tulsa, OK", "Charlotte, NC",
+    "Raleigh, NC", "Nashville, TN", "Memphis, TN", "Boston, MA", "Philadelphia, PA",
+    "Pittsburgh, PA", "Washington, DC", "Baltimore, MD", "San Juan, PR"
+]
+
+tags_pool = [
+    "plans",
+    "mobile app",
+    "retail experience",
+    "roaming",
+    "coverage",
+    "promotions",
+    "customer service",
+    "network speed",
+    "billing",
+    "network reliability"
+]
+
+def generate_email(full_name: str) -> str:
+    """Generate an email like 'firstlast123@gmail.com' from a full name."""
+    parts = full_name.split()
+    if len(parts) == 1:
+        first = parts[0]
+        last = ""
+    else:
+        first = parts[0]
+        last = parts[-1]
+
+    base = (first + last).lower()
+    number = random.randint(0, 9999)
+
+    domains = ["gmail.com", "yahoo.com", "outlook.com", "hotmail.com", "icloud.com"]
+    domain = random.choice(domains)
+
+    return f"{base}{number}@{domain}"
 
 positive = [
     "Honestly blown away by the 5G speeds today, feels unreal!",
@@ -79,7 +141,6 @@ positive = [
     "5G so strong it should pay rent on my phone."
 ]
 
-
 negative = [
     "5G shouldn’t be this slow in 2025… what is happening T-Mobile?",
     "At this point my phone signal is more imaginary than real.",
@@ -134,7 +195,6 @@ negative = [
     "Why won't your network stay connected? And why can I roam on the super strong ATT network while your network is down?  I'm pretty sure I was promised unlimited domestic roaming when I signed up."
 ]
 
-
 neutral = [
     "Thinking about upgrading but still comparing plans.",
     "T-Mobile bill just hit, looks normal.",
@@ -177,8 +237,14 @@ neutral = [
     "Considering family plan math."
 ]
 
+SCRIPT_DIR = Path(__file__).resolve().parent          # .../client/src/scripts
+CLIENT_ROOT = SCRIPT_DIR.parent.parent                # .../client
+DATA_DIR = CLIENT_ROOT / "data" / "raw"               # .../client/data/raw
 
-FILE_PATH = "/Users/lanemeeks/Documents/GitHub/Hack-2025/client/data/raw/tmobile_reviews_full.json"
+# Make sure the directory exists
+DATA_DIR.mkdir(parents=True, exist_ok=True)
+
+FILE_PATH = DATA_DIR / "tmobile_reviews_full.json"
 
 seen_messages = set()
 tweets = []
@@ -189,8 +255,17 @@ while count < NUM_TWEETS:
     positiveWeight = random.uniform(0, total)
     neutralWeight = random.uniform(0, total - positiveWeight)
     negativeWeight = total - (positiveWeight + neutralWeight)
-    sentiment = random.choices(["pos", "neg", "neu"], weights=[positiveWeight, neutralWeight, negativeWeight])[0]
-    text = random.choice(positive if sentiment == "pos" else negative if sentiment == "neg" else neutral)
+
+    sentiment = random.choices(
+        ["pos", "neg", "neu"],
+        weights=[positiveWeight, neutralWeight, negativeWeight]
+    )[0]
+
+    text = random.choice(
+        positive if sentiment == "pos"
+        else negative if sentiment == "neg"
+        else neutral
+    )
     text = text.replace("T-Mobile", random.choice(keywords))
     text = f"{random.choice(mentions)} {text} {random.choice(hashtags)}".strip()
 
@@ -199,25 +274,32 @@ while count < NUM_TWEETS:
 
     seen_messages.add(text.lower())
 
-    date = random_date()
     likes = random.randint(0, 56345)
     rts = random.randint(0, 2452)
     replies = random.randint(0, 320)
     source = random.choice(sources)
-    tweet_id = random_tweet_id()
 
-    # Create tweet object
+    # New: choose name, email, location, tags
+    name = random.choice(names)
+    email = generate_email(name)
+    location = random.choice(locations)
+    tags = [random.choice(tags_pool)]
+
+    # Create tweet object (no id, replaced with name/email/location/tags)
     tweet = {
-        "id": tweet_id,
-        "date": date,
+        "name": name,
+        "email": email,
+        "location": location,
         "text": text,
         "likeCount": likes,
         "retweetCount": rts,
         "replyCount": replies,
         "source": source,
-        "sentiment": sentiment
+        "sentiment": sentiment,
+        "tags": [random.choice(tags_pool)]  # assuming you already changed this
     }
-    
+
+
     tweets.append(tweet)
     count += 1
 

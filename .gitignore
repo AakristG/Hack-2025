@@ -7,4 +7,5 @@ client/node_modules/
 *.log
 dist/
 build/
-
+tmobile_reviews_full.json
+client/data/raw/tmobile_reviews_full.json
