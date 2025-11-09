@@ -6,13 +6,6 @@ from datetime import datetime, timedelta
 # Settings
 NUM_TWEETS = 1000
 
-def random_date():
-    """Return a random date (no time) between START_DATE and END_DATE."""
-    delta_days = (END_DATE - START_DATE).days
-    random_days = random.randint(0, delta_days)
-    d = START_DATE + timedelta(days=random_days)
-    return d.strftime("%Y-%m-%d")
-
 sources = ["Twitter for iPhone", "Twitter for Android", "Twitter Web App"]
 mentions = ["@TMobile", "@TMobileHelp", "@TMobileBusiness", ""]
 hashtags = ["#TMobile", "#T-Mobile", ""]
