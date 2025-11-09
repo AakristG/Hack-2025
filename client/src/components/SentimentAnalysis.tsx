@@ -83,8 +83,8 @@ export function SentimentAnalysis({
       stats.byCategory[item.category].total++;
     });
 
-    // Keep 0–100 scale to match FeedbackStream
-    stats.averageScore = stats.total > 0 ? Math.round((totalScore / stats.total)) : 0;
+    // Calculate average score out of 5 (scores are already 0-5 scale)
+    stats.averageScore = stats.total > 0 ? Math.round((totalScore / stats.total) * 10) / 10 : 0;
 
     // Calculate trend vs previous
     if (previousStats && previousStats.total > 0 && stats.total > 0) {
@@ -153,11 +153,11 @@ export function SentimentAnalysis({
     >
       {(mode === 'overall' || mode === 'both') && (
         /* Overall Sentiment Overview */
-        <Card className={`bg-white p-6 ${mode !== 'both' && height ? 'h-full' : ''}`}>
+        <Card className={`p-6 ${mode !== 'both' && height ? 'h-full' : ''}`}>
           <div className="flex items-center justify-between mb-6">
             <div className="flex items-center gap-2">
               <PieChart className="w-5 h-5 text-purple-600" />
-              <h3 className="text-gray-900 font-semibold text-lg">Overall User Satisfaction</h3>
+              <h3 className="text-white font-semibold text-lg">Overall User Satisfaction</h3>
             </div>
             {isLive && (
               <Badge variant="secondary" className="bg-green-100 text-green-700">
@@ -167,34 +167,34 @@ export function SentimentAnalysis({
           </div>
 
           <div className="grid grid-cols-3 gap-4 mb-6">
-            <div className="text-center p-4 bg-green-50 rounded-lg border border-green-200">
+            <div className="text-center p-4 bg-green-900/30 rounded-lg border border-green-700">
               <div className="text-3xl font-bold text-green-600">{currentStats.positive}</div>
-              <div className="text-sm text-gray-600 mt-1">Positive</div>
-              <div className="text-xs text-gray-500 mt-1">{positivePercentage}%</div>
+              <div className="text-sm text-gray-300 mt-1">Positive</div>
+              <div className="text-xs text-gray-400 mt-1">{positivePercentage}%</div>
             </div>
-            <div className="text-center p-4 bg-yellow-50 rounded-lg border border-yellow-200">
-              <div className="text-3xl font-bold text-yellow-600">{currentStats.neutral}</div>
-              <div className="text-sm text-gray-600 mt-1">Neutral</div>
-              <div className="text-xs text-gray-500 mt-1">{neutralPercentage}%</div>
+            <div className="text-center p-4 bg-yellow-900/30 rounded-lg border border-yellow-700">
+              <div className="text-3xl font-bold text-yellow-500">{currentStats.neutral}</div>
+              <div className="text-sm text-gray-300 mt-1">Neutral</div>
+              <div className="text-xs text-gray-400 mt-1">{neutralPercentage}%</div>
             </div>
-            <div className="text-center p-4 bg-red-50 rounded-lg border border-red-200">
-              <div className="text-3xl font-bold text-red-600">{currentStats.negative}</div>
-              <div className="text-sm text-gray-600 mt-1">Negative</div>
-              <div className="text-xs text-gray-500 mt-1">{negativePercentage}%</div>
+            <div className="text-center p-4 bg-red-900/30 rounded-lg border border-red-700">
+              <div className="text-3xl font-bold text-red-500">{currentStats.negative}</div>
+              <div className="text-sm text-gray-300 mt-1">Negative</div>
+              <div className="text-xs text-gray-400 mt-1">{negativePercentage}%</div>
             </div>
           </div>
 
           <div className="mb-6">
             <div className="flex items-center justify-between mb-2">
-              <span className="text-sm font-medium text-gray-700">Average User Score</span>
+              <span className="text-sm font-medium text-gray-300">Happiness Index Score</span>
               <div className="flex items-center gap-2">
-                <span className="text-2xl font-bold text-purple-600">{currentStats.averageScore}/100</span>
+                <span className="text-2xl font-bold text-purple-600">{currentStats.averageScore}/5</span>
               </div>
             </div>
-            <div className="w-full bg-gray-200 rounded-full h-3">
+            <div className="w-full bg-gray-800 rounded-full h-3">
               <div
                 className="bg-gradient-to-r from-purple-500 to-pink-500 h-3 rounded-full transition-all duration-500"
-                style={{ width: `${currentStats.averageScore}%` }}
+                style={{ width: `${(currentStats.averageScore / 5) * 100}%` }}
               />
             </div>
           </div>
@@ -225,11 +225,11 @@ export function SentimentAnalysis({
 
       {(mode === 'byCategory' || mode === 'both') && (
         /* Happiness by Category */
-        <Card className={`bg-white p-6 ${mode !== 'both' && height ? 'h-full' : ''}`}>
+        <Card className={`p-6 ${mode !== 'both' && height ? 'h-full' : ''}`}>
           <div className="flex items-center justify-between mb-6">
             <div className="flex items-center gap-2">
               <BarChart3 className="w-5 h-5 text-purple-600" />
-              <h3 className="text-gray-900 font-semibold text-lg">Happiness by Category</h3>
+              <h3 className="text-white font-semibold text-lg">Happiness by Category</h3>
             </div>
             <Badge variant="secondary" className="bg-blue-100 text-blue-700">
               {Object.keys(currentStats.byCategory).length} categories
@@ -265,16 +265,16 @@ export function SentimentAnalysis({
               const negPercent = item.total > 0 ? Math.round((item.negative / item.total) * 100) : 0;
 
               return (
-                <div key={item.category} className="p-3 bg-gray-50 rounded-lg border border-gray-200">
+                <div key={item.category} className="p-3 bg-gray-900/50 rounded-lg border border-gray-700">
                   <div className="flex items-center justify-between mb-2">
-                    <span className="text-sm font-medium text-gray-800">{item.category}</span>
-                    <span className="text-xs text-gray-500">{item.total} total</span>
+                    <span className="text-sm font-medium text-white">{item.category}</span>
+                    <span className="text-xs text-white">{item.total} total</span>
                   </div>
                   <div className="flex gap-2">
                     <div className="flex-1">
                       <div className="flex items-center justify-between text-xs mb-1">
                         <span className="text-green-600">Positive</span>
-                        <span className="text-gray-600">{posPercent}%</span>
+                        <span className="text-white">{posPercent}%</span>
                       </div>
                       <div className="w-full bg-gray-200 rounded-full h-1.5">
                         <div className="bg-green-500 h-1.5 rounded-full" style={{ width: `${posPercent}%` }} />
@@ -283,7 +283,7 @@ export function SentimentAnalysis({
                     <div className="flex-1">
                       <div className="flex items-center justify-between text-xs mb-1">
                         <span className="text-yellow-600">Neutral</span>
-                        <span className="text-gray-600">{neuPercent}%</span>
+                        <span className="text-white">{neuPercent}%</span>
                       </div>
                       <div className="w-full bg-gray-200 rounded-full h-1.5">
                         <div className="bg-yellow-500 h-1.5 rounded-full" style={{ width: `${neuPercent}%` }} />
@@ -292,9 +292,9 @@ export function SentimentAnalysis({
                     <div className="flex-1">
                       <div className="flex items-center justify-between text-xs mb-1">
                         <span className="text-red-600">Negative</span>
-                        <span className="text-gray-600">{negPercent}%</span>
+                        <span className="text-white">{negPercent}%</span>
                       </div>
-                      <div className="w-full bg-gray-200 rounded-full h-1.5">
+                      <div className="w-full bg-white rounded-full h-1.5">
                         <div className="bg-red-500 h-1.5 rounded-full" style={{ width: `${negPercent}%` }} />
                       </div>
                     </div>

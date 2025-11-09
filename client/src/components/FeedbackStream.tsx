@@ -206,7 +206,7 @@ export function FeedbackStream({ isLive, onFeedbackUpdate }: FeedbackStreamProps
 
   // TODO: Choose how much data we want to load in feedback stream upon loading
   useEffect(() => {
-    const initialCount = 50;
+    const initialCount = 1;
     const shuffled = [...rawReviews].sort(() => Math.random() - 0.5);
     const initial = shuffled.slice(0, initialCount).map((item, idx) => {
       // Calculate score for initial items using fallback sentiment
@@ -287,7 +287,7 @@ export function FeedbackStream({ isLive, onFeedbackUpdate }: FeedbackStreamProps
       if (rawReview.originalReview) {
         updateItemSentiment(newFeedback.id, newFeedback.message, rawReview.originalReview);
       }
-    }, 6000);
+    }, 3000); // TODO: Change to 2000 later
 
     return () => clearInterval(interval);
   }, [isLive, onFeedbackUpdate, currentIndex, rawReviews, updateItemSentiment]);
@@ -295,24 +295,24 @@ export function FeedbackStream({ isLive, onFeedbackUpdate }: FeedbackStreamProps
   const getSentimentIcon = (sentiment: string) => {
     switch (sentiment) {
       case 'positive':
-        return <Smile className="w-4 h-4 text-green-600" />;
+        return <Smile className="w-4 h-4 text-green-400" />;
       case 'neutral':
-        return <Meh className="w-4 h-4 text-yellow-600" />;
+        return <Meh className="w-4 h-4 text-yellow-400" />;
       case 'negative':
-        return <Frown className="w-4 h-4 text-red-600" />;
+        return <Frown className="w-4 h-4 text-red-400" />;
       default:
-        return <Meh className="w-4 h-4 text-gray-600" />;
+        return <Meh className="w-4 h-4 text-white-400" />;
     }
   };
 
   const getSentimentColor = (sentiment: string) => {
     switch (sentiment) {
       case 'positive':
-        return 'bg-green-100 text-green-700 border-green-200';
+        return 'bg-green-900/30 text-green-400 border-green-700';
       case 'neutral':
-        return 'bg-yellow-100 text-yellow-700 border-yellow-200';
+        return 'bg-yellow-900/30 text-yellow-400 border-yellow-700';
       case 'negative':
-        return 'bg-red-100 text-red-700 border-red-200';
+        return 'bg-red-900/30 text-red-400 border-red-700';
     }
   };
 
@@ -326,18 +326,18 @@ export function FeedbackStream({ isLive, onFeedbackUpdate }: FeedbackStreamProps
   };
 
   return (
-    <Card className="bg-white p-6 h-full flex flex-col overflow-hidden">
+    <Card className="p-6 h-full flex flex-col overflow-hidden">
       <div className="flex items-center justify-between mb-4 flex-shrink-0">
         <div className="flex items-center gap-2">
           <MessageSquare className="w-5 h-5 text-purple-600" />
-          <h3 className="text-gray-900">Live Feedback Stream</h3>
+          <h3 className="text-white">Live Feedback Stream</h3>
         </div>
-        <Badge variant="secondary" className="bg-blue-100 text-blue-700">
+        <Badge variant="secondary" className="bg-white-100 text-white-700">
           {feedbackItems.length} items
         </Badge>
       </div>
       <div className="flex-1 overflow-hidden min-h-0">
-        <div className="h-full overflow-y-auto space-y-3 pr-2 pl-1">
+        <div className="h-full overflow-y-auto overflow-x-hidden space-y-3 pr-2 pl-1">
           {feedbackItems.map((item, index) => (
             <div
               key={item.id}
@@ -352,15 +352,15 @@ export function FeedbackStream({ isLive, onFeedbackUpdate }: FeedbackStreamProps
               <div className="flex items-start justify-between mb-2">
                 <div className="flex items-center gap-2">
                   {getSentimentIcon(item.sentiment)}
-                  <span className="text-sm">{item.user}</span>
-                  <Badge variant="outline" className="text-xs">
+                  <span className="text-sm text-white">{item.user}</span>
+                  <Badge variant="outline" className="text-xs text-white border-gray-600">
                     {item.category}
                   </Badge>
                 </div>
-                <span className="text-xs text-gray-500">{item.score.toFixed(1)}/5</span>
+                <span className="text-xs text-white-400">{item.score.toFixed(1)}/5</span>
               </div>
-              <p className="text-sm text-gray-700 mb-3">{item.message}</p>
-              <div className="flex items-center gap-4 text-xs text-gray-500">
+              <p className="text-sm text-white-300 mb-3">{item.message}</p>
+              <div className="flex items-center gap-4 text-xs text-white-400">
                 <div className="flex items-center gap-1">
                   <MapPin className="w-3 h-3" />
                   <span>{item.location}</span>

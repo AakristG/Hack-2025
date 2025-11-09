@@ -103,11 +103,11 @@ Format each suggestion as a simple sentence starting with a verb (e.g., "Improve
   }, [negativeFeedback]);
 
   return (
-    <Card className="bg-white p-6 h-full flex flex-col">
+    <Card className="p-6 h-full flex flex-col">
       <div className="flex items-center justify-between mb-6">
         <div className="flex items-center gap-2">
           <Lightbulb className="w-5 h-5 text-purple-600" />
-          <h3 className="text-gray-900 font-semibold text-lg">Actionable Insights</h3>
+          <h3 className="text-white font-semibold text-lg">Actionable Insights</h3>
         </div>
         <Badge variant="secondary" className="bg-purple-100 text-purple-700">
           AI Generated Suggestions
@@ -115,21 +115,21 @@ Format each suggestion as a simple sentence starting with a verb (e.g., "Improve
       </div>
 
       {isGenerating && (
-        <div className="text-center py-8 text-gray-500">
+        <div className="text-center py-8 text-gray-400">
           <Loader2 className="w-8 h-8 mx-auto mb-2 animate-spin text-purple-600" />
           <p className="text-sm">Generating suggestions...</p>
         </div>
       )}
 
       {!isGenerating && insights.length === 0 && negativeFeedback.length >= 3 && (
-        <div className="text-center py-8 text-gray-500">
+        <div className="text-center py-8 text-gray-400">
           <p>No insights available yet</p>
           <p className="text-sm mt-1">Analyzing feedback...</p>
         </div>
       )}
 
       {!isGenerating && negativeFeedback.length < 3 && (
-        <div className="text-center py-8 text-gray-500">
+        <div className="text-center py-8 text-gray-400">
           <p>Need more feedback</p>
           <p className="text-sm mt-1">At least 3 negative reviews required for insights</p>
         </div>
@@ -140,9 +140,9 @@ Format each suggestion as a simple sentence starting with a verb (e.g., "Improve
           {insights.map((insight) => (
             <div
               key={insight.id}
-              className="p-4 rounded-lg border border-purple-200 bg-purple-50 hover:bg-purple-100 transition-colors"
+              className="p-4 rounded-lg border border-purple-700 bg-purple-900/30 hover:bg-purple-900/50 transition-colors"
             >
-              <p className="text-sm text-gray-800 leading-relaxed">{insight.suggestion}</p>
+              <p className="text-sm text-white leading-relaxed">{insight.suggestion}</p>
             </div>
           ))}
         </div>

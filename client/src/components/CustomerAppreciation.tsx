@@ -152,11 +152,11 @@ Customer Appreciation Team`;
   };
 
   return (
-    <Card className="bg-white p-6 h-full flex flex-col">
+    <Card className="p-6 flex flex-col h-[280px]">
       <div className="flex items-center justify-between mb-6 flex-shrink-0">
         <div className="flex items-center gap-2">
           <Heart className="w-5 h-5 text-purple-600" />
-          <h3 className="text-gray-900 font-semibold text-lg">Customer Appreciation</h3>
+          <h3 className="text-white font-semibold text-lg">Customer Appreciation</h3>
         </div>
         <Badge variant="secondary" className="bg-green-100 text-green-700">
           {topCustomers.length} top customers
@@ -164,25 +164,26 @@ Customer Appreciation Team`;
       </div>
 
       {topCustomers.length === 0 && (
-        <div className="text-center py-8 text-gray-500 flex-shrink-0">
-          <Heart className="w-12 h-12 mx-auto mb-2 text-gray-400" />
+        <div className="text-center py-8 text-white-400 flex-shrink-0">
+          <Heart className="w-12 h-12 mx-auto mb-2 text-white-500" />
           <p>No top customers identified yet</p>
           <p className="text-sm mt-1">Positive feedback will appear here</p>
         </div>
       )}
 
-      <div className="space-y-3 flex-1 overflow-y-auto pr-2 min-h-0">
+      {topCustomers.length > 0 && (
+        <div className="space-y-3 flex-1 overflow-y-auto pr-2 min-h-0">
         {topCustomers.map((customer, index) => (
           <div
             key={`${customer.user}-${index}`}
-            className="p-4 rounded-lg border border-green-200 bg-green-50 hover:bg-green-100 transition-colors"
+            className="p-4 rounded-lg border border-green-700 bg-green-900/30 hover:bg-green-900/50 transition-colors"
           >
             <div className="flex items-center justify-between mb-2 flex-wrap gap-2">
               <div className="flex items-center gap-2 flex-1 min-w-0">
                 <Star className="w-5 h-5 text-yellow-500 fill-yellow-500 flex-shrink-0" />
-                <h4 className="font-semibold text-sm text-gray-900">{customer.user}</h4>
-                <span className="text-xs text-gray-600">•</span>
-                <span className="text-xs text-gray-600">{customer.location}</span>
+                <h4 className="font-semibold text-sm text-white">{customer.user}</h4>
+                <span className="text-xs text-gray-400">•</span>
+                <span className="text-xs text-gray-400">{customer.location}</span>
               </div>
               <div className="flex items-center gap-2 flex-shrink-0">
                 <Badge variant="outline" className="bg-green-100 text-green-700 border-green-300">
@@ -196,8 +197,8 @@ Customer Appreciation Team`;
 
             {customer.recentFeedback.length > 0 && (
               <div className="mb-3">
-                <p className="text-xs text-gray-600 mb-1">Recent feedback:</p>
-                <p className="text-xs text-gray-700 italic line-clamp-2">
+                <p className="text-xs text-gray-400 mb-1">Recent feedback:</p>
+                <p className="text-xs text-gray-300 italic line-clamp-2">
                   "{customer.recentFeedback[0].message}"
                 </p>
               </div>
@@ -222,9 +223,8 @@ Customer Appreciation Team`;
             </button>
           </div>
         ))}
-      </div>
-
-      
+        </div>
+      )}
     </Card>
   );
 }

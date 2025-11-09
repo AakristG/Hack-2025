@@ -35,7 +35,8 @@ router.post('/chat', async (req, res) => {
     res.json(response);
   } catch (error) {
     console.error('Gemini chat error:', error);
-    res.status(500).json({ 
+    const statusCode = error.message && error.message.includes('API key') ? 401 : 500;
+    res.status(statusCode).json({ 
       error: error.message || 'Failed to get response from Gemini' 
     });
   }
@@ -63,7 +64,8 @@ router.post('/generate', async (req, res) => {
     });
   } catch (error) {
     console.error('Gemini generate error:', error);
-    res.status(500).json({ 
+    const statusCode = error.message && error.message.includes('API key') ? 401 : 500;
+    res.status(statusCode).json({ 
       error: error.message || 'Failed to generate text from Gemini' 
     });
   }
@@ -91,7 +93,8 @@ router.post('/sentiment', async (req, res) => {
     });
   } catch (error) {
     console.error('Gemini sentiment analysis error:', error);
-    res.status(500).json({ 
+    const statusCode = error.message && error.message.includes('API key') ? 401 : 500;
+    res.status(statusCode).json({ 
       error: error.message || 'Failed to analyze sentiment with Gemini' 
     });
   }
@@ -119,7 +122,8 @@ router.post('/category', async (req, res) => {
     });
   } catch (error) {
     console.error('Gemini category analysis error:', error);
-    res.status(500).json({ 
+    const statusCode = error.message && error.message.includes('API key') ? 401 : 500;
+    res.status(statusCode).json({ 
       error: error.message || 'Failed to analyze category with Gemini' 
     });
   }

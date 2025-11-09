@@ -193,37 +193,37 @@ Respond with ONLY the issue title, nothing else.`
   const getSeverityColor = (severity: string) => {
     switch (severity) {
       case 'high':
-        return 'bg-red-100 text-red-700 border-red-200';
+        return 'bg-red-900/30 text-red-400 border-red-700';
       case 'medium':
-        return 'bg-yellow-100 text-yellow-700 border-yellow-200';
+        return 'bg-yellow-900/30 text-yellow-400 border-yellow-700';
       case 'low':
-        return 'bg-blue-100 text-blue-700 border-blue-200';
+        return 'bg-blue-900/30 text-blue-400 border-blue-700';
       default:
-        return 'bg-gray-100 text-gray-700 border-gray-200';
+        return 'bg-gray-900/30 text-gray-400 border-gray-700';
     }
   };
 
   const getSeverityIcon = (severity: string) => {
     switch (severity) {
       case 'high':
-        return <AlertTriangle className="w-5 h-5 text-red-600" />;
+        return <AlertTriangle className="w-5 h-5 text-red-400" />;
       case 'medium':
-        return <Zap className="w-5 h-5 text-yellow-600" />;
+        return <Zap className="w-5 h-5 text-yellow-400" />;
       case 'low':
-        return <Activity className="w-5 h-5 text-blue-600" />;
+        return <Activity className="w-5 h-5 text-blue-400" />;
       default:
-        return <Activity className="w-5 h-5 text-gray-600" />;
+        return <Activity className="w-5 h-5 text-gray-400" />;
     }
   };
 
   const getTrendIcon = (trend: string) => {
     switch (trend) {
       case 'increasing':
-        return <TrendingUp className="w-4 h-4 text-red-600" />;
+        return <TrendingUp className="w-4 h-4 text-red-400" />;
       case 'decreasing':
-        return <TrendingUp className="w-4 h-4 text-green-600 rotate-180" />;
+        return <TrendingUp className="w-4 h-4 text-green-400 rotate-180" />;
       default:
-        return <Activity className="w-4 h-4 text-gray-600" />;
+        return <Activity className="w-4 h-4 text-gray-400" />;
     }
   };
 
@@ -243,11 +243,11 @@ Respond with ONLY the issue title, nothing else.`
   });
 
   return (
-    <Card className="bg-white p-6">
-      <div className="flex items-center justify-between mb-6">
+    <Card className="p-6 flex flex-col h-[280px]">
+      <div className="flex items-center justify-between mb-6 flex-shrink-0">
         <div className="flex items-center gap-2">
           <AlertTriangle className="w-5 h-5 text-purple-600" />
-          <h3 className="text-gray-900 font-semibold text-lg">Issue Detection</h3>
+          <h3 className="text-white font-semibold text-lg">Issue Detection</h3>
         </div>
         <Badge variant="secondary" className="bg-red-100 text-red-700">
           {recentIssues.length} active
@@ -255,20 +255,21 @@ Respond with ONLY the issue title, nothing else.`
       </div>
 
       {isAnalyzing && (
-        <div className="text-center py-4 text-gray-500 text-sm">
+        <div className="text-center py-4 text-gray-400 text-sm flex-shrink-0">
           Analyzing feedback for issues...
         </div>
       )}
 
       {activeIssues.length === 0 && !isAnalyzing && (
-        <div className="text-center py-8 text-gray-500">
+        <div className="text-center py-8 text-gray-400 flex-shrink-0">
           <Activity className="w-12 h-12 mx-auto mb-2 text-gray-400" />
           <p>No active issues detected</p>
           <p className="text-sm mt-1">All systems operating normally</p>
         </div>
       )}
 
-      <div className="space-y-4 max-h-96 overflow-y-auto">
+      {activeIssues.length > 0 && !isAnalyzing && (
+        <div className="space-y-4 flex-1 overflow-y-auto pr-2 min-h-0">
         {activeIssues.map((issue) => {
           const issueKey = `${issue.category}|${issue.location}`;
           const currentGroup = groupedFeedback[issueKey];
@@ -286,7 +287,7 @@ Respond with ONLY the issue title, nothing else.`
                   {getSeverityIcon(issue.severity)}
                   <div className="flex-1">
                     <div className="flex items-center gap-2">
-                      <h4 className="font-semibold text-sm">{issue.title}</h4>
+                      <h4 className="font-semibold text-sm text-white">{issue.title}</h4>
                       {!isActive && (
                         <Badge variant="outline" className="bg-gray-200 text-gray-600 text-xs">
                           Resolved
@@ -294,7 +295,7 @@ Respond with ONLY the issue title, nothing else.`
                       )}
                     </div>
                     {issue.location && (
-                      <p className="text-xs text-gray-600 mt-0.5">Location: {issue.location}</p>
+                      <p className="text-xs text-gray-400 mt-0.5">Location: {issue.location}</p>
                     )}
                   </div>
                 </div>
@@ -314,7 +315,7 @@ Respond with ONLY the issue title, nothing else.`
                 )}
               </div>
 
-              <div className="flex items-center justify-between mt-3 text-xs text-gray-600">
+              <div className="flex items-center justify-between mt-3 text-xs text-gray-400">
                 <span>Detected {getTimeAgo(issue.detectedAt)}</span>
                 <div className="flex items-center gap-1">
                   {getTrendIcon(issue.trend)}
@@ -324,8 +325,8 @@ Respond with ONLY the issue title, nothing else.`
             </div>
           );
         })}
-      </div>
-
+        </div>
+      )}
     </Card>
   );
 }

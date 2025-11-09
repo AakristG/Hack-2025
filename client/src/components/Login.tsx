@@ -82,8 +82,8 @@ const Login: React.FC = () => {
         {/* Right side with content */}
         <div className="flex-1 flex items-center justify-center p-10">
           <div className="max-w-md w-full backdrop-blur-md bg-white/90 rounded-3xl p-8 shadow-2xl">
-            <h1 className="text-4xl font-bold text-gray-900 mb-4 leading-tight tracking-tight">
-              {isLogin ? 'Welcome back' : 'Join today'}
+            <h1 className="text-3xl font-bold text-gray-900 mb-4 leading-tight tracking-tight">
+              {isLogin ? 'Welcome back to PULSE' : 'Join today'}
             </h1>
             <h2 className="text-2xl font-semibold text-gray-700 mb-8 leading-tight">
               {isLogin ? 'Sign in to your account' : 'Create your account'}

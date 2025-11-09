@@ -23,15 +23,20 @@ const Dashboard: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen relative overflow-hidden bg-gradient-to-br from-purple-500 to-pink-500 p-5">
+    <div className="min-h-screen relative overflow-hidden bg-black p-5">
       {/* <ParticleBackground /> */ }
       
       {/* Content */}
-      <div className="relative z-10">
-        <header className="bg-white rounded-xl p-6 mb-8 shadow-lg flex justify-between items-center">
+      <div className="relative z-10 max-w-7xl mx-auto">
+        <header 
+          className="bg-black rounded-xl p-6 mb-8 shadow-lg flex justify-between items-center border border-gray-800"
+          style={{
+            boxShadow: '0 0 10px rgba(226, 0, 116, 0.3), 0 0 20px rgba(226, 0, 116, 0.2), 0 4px 6px rgba(0, 0, 0, 0.1)'
+          }}
+        >
         <div className="flex-1">
-          <h1 className="text-purple-600 m-0 text-3xl font-bold">Customer Satisfaction Analysis</h1>
-          {user && <p className="text-gray-600 mt-1 text-sm">Welcome, {user.username}</p>}
+          <h1 className="text-white m-0 text-3xl font-bold">Welcome to your Pulse Dashboard</h1>
+          {user && <p className="font-bold text-white mt-1 text-sm">Hello, {user.username}</p>}
         </div>
         <button
           onClick={handleLogout}
@@ -41,14 +46,14 @@ const Dashboard: React.FC = () => {
         </button>
         </header>
 
-      <main className="max-w-7xl mx-auto">
+      <main>
         {/* Real-Time Sentiment Analysis and Issue Detection */}
         <div className="mb-8">
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
             <div className="lg:col-span-2">
               <SentimentAnalysis feedbackItems={feedbackItems} isLive={isLive} />
             </div>
-            <div className="space-y-6">
+            <div className="space-y-2">
               <IssueDetection feedbackItems={feedbackItems} isLive={isLive} />
               <CustomerAppreciation feedbackItems={feedbackItems} />
             </div>
@@ -59,16 +64,21 @@ const Dashboard: React.FC = () => {
         <div className="mb-8">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
             {/* Twitter Feedback Stream */}
-            <div className="bg-white rounded-xl p-8 shadow-lg h-[600px] flex flex-col">
+            <div 
+              className="bg-black rounded-xl p-8 shadow-lg h-[600px] flex flex-col border border-gray-800"
+              style={{
+                boxShadow: '0 0 10px rgba(226, 0, 116, 0.3), 0 0 30px rgba(226, 0, 116, 0.2), 0 4px 6px rgba(0, 0, 0, 0.1)'
+              }}
+            >
               <div className="flex items-center justify-between mb-4 flex-shrink-0">
-                <h2 className="text-gray-800 text-2xl border-b-2 border-purple-600 pb-2.5">
+                <h2 className="text-white text-2xl border-b-2 border-purple-600 pb-2.5">
                   Twitter Feedback Stream
                 </h2>
                 <button
                   onClick={() => setIsLive(!isLive)}
                   className={`px-4 py-2 rounded-lg font-medium transition-colors ${
                     isLive
-                      ? 'bg-green-500 text-white hover:bg-green-600'
+                      ? 'bg-[#E20074] text-white hover:bg-[#C20066]'
                       : 'bg-gray-300 text-gray-700 hover:bg-gray-400'
                   }`}
                 >

@@ -12,7 +12,7 @@ const fs = require('fs');
  */
 function loadEnv() {
   const rootDir = path.join(__dirname, '..', '..');
-  const mainEnvPath = path.join(rootDir, 'main.env');
+  const mainEnvPath = path.join(rootDir, '.env');
   const dotEnvPath = path.join(rootDir, '.env');
 
   if (fs.existsSync(mainEnvPath)) {

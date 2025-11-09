@@ -23,3 +23,32 @@
   }
 }
 
+/* Custom Scrollbar Styling */
+@layer utilities {
+  /* Webkit browsers (Chrome, Safari, Edge) */
+  *::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+
+  *::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0.3);
+    border-radius: 4px;
+  }
+
+  *::-webkit-scrollbar-thumb {
+    background: #E20074;
+    border-radius: 4px;
+  }
+
+  *::-webkit-scrollbar-thumb:hover {
+    background: rgba(226, 0, 116, 0.8);
+  }
+
+  /* Firefox */
+  * {
+    scrollbar-width: thin;
+    scrollbar-color: #E20074 rgba(0, 0, 0, 0.3);
+  }
+}
+

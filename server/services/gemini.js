@@ -124,6 +124,10 @@ async function chatCompletion(messages, options = {}) {
       },
     };
   } catch (error) {
+    // Check for API key errors specifically
+    if (error.message && (error.message.includes('API_KEY_INVALID') || error.message.includes('API key expired'))) {
+      throw new Error('GEMINI_API_KEY is invalid or expired. Please update your API key in your environment file.');
+    }
     throw new Error(`Failed to connect to Gemini API: ${error.message}`);
   }
 }
@@ -158,6 +162,10 @@ async function generateText(prompt, options = {}) {
     const response = await result.response;
     return response.text();
   } catch (error) {
+    // Check for API key errors specifically
+    if (error.message && (error.message.includes('API_KEY_INVALID') || error.message.includes('API key expired'))) {
+      throw new Error('GEMINI_API_KEY is invalid or expired. Please update your API key in your environment file.');
+    }
     throw new Error(`Failed to generate text from Gemini API: ${error.message}`);
   }
 }
@@ -211,6 +219,10 @@ Sentiment:`;
     }
   } catch (error) {
     console.error('Gemini sentiment analysis error:', error);
+    // Check for API key errors specifically
+    if (error.message && (error.message.includes('API_KEY_INVALID') || error.message.includes('API key expired'))) {
+      console.error('❌ GEMINI_API_KEY is invalid or expired. Please update your API key.');
+    }
     // Fallback to neutral if analysis fails
     return 'neutral';
   }
@@ -290,6 +302,10 @@ Category:`;
     return matchedCategory || 'General';
   } catch (error) {
     console.error('Gemini category analysis error:', error);
+    // Check for API key errors specifically
+    if (error.message && (error.message.includes('API_KEY_INVALID') || error.message.includes('API key expired'))) {
+      console.error('❌ GEMINI_API_KEY is invalid or expired. Please update your API key.');
+    }
     // Fallback to General if analysis fails
     return 'General';
   }
