@@ -10,6 +10,7 @@ interface User {
 interface AuthContextType {
   user: User | null;
   login: (username: string, password: string) => Promise<{ success: boolean; error?: string }>;
+  loginWithGoogle: (credential: string) => Promise<{ success: boolean; error?: string }>;
   logout: () => void;
   loading: boolean;
 }
@@ -56,6 +57,20 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     }
   };
 
+  const loginWithGoogle = async (credential: string): Promise<{ success: boolean; error?: string }> => {
+    try {
+      const response = await axios.post('/api/auth/google', { credential });
+      const { token, user } = response.data;
+      localStorage.setItem('token', token);
+      localStorage.setItem('user', JSON.stringify(user));
+      axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+      setUser(user);
+      return { success: true };
+    } catch (error: any) {
+      return { success: false, error: error.response?.data?.error || 'Google login failed' };
+    }
+  };
+
   const logout = (): void => {
     localStorage.removeItem('token');
     localStorage.removeItem('user');
@@ -66,6 +81,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   const value: AuthContextType = {
     user,
     login,
+    loginWithGoogle,
     logout,
     loading
   };
