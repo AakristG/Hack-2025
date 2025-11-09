@@ -1,95 +1,24 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import axios from 'axios';
 import { useAuth } from '../context/AuthContext';
-import SatisfactionStats from './SatisfactionStats';
-import SatisfactionTable from './SatisfactionTable';
-import AddSatisfactionForm from './AddSatisfactionForm';
-
-interface SatisfactionEntry {
-  id: number;
-  customer_name: string;
-  product_name: string;
-  rating: number;
-  comment: string | null;
-  created_at: string;
 }
-
-interface Stats {
-  total?: Array<{ count: number }>;
-  average?: Array<{ avg: number }>;
-  byRating?: Array<{ rating: number; count: number }>;
-  byProduct?: Array<{ product_name: string; avg_rating: number; count: number }>;
-  recent?: SatisfactionEntry[];
-}
+import { FeedbackStream, FeedbackItem } from './FeedbackStream';
+import { SentimentAnalysis } from './SentimentAnalysis';
 
 const Dashboard: React.FC = () => {
-  const [stats, setStats] = useState<Stats | null>(null);
-  const [data, setData] = useState<SatisfactionEntry[]>([]);
-  const [loading, setLoading] = useState<boolean>(true);
-  const [error, setError] = useState<string>('');
+  const [isLive, setIsLive] = useState<boolean>(true);
+  const [feedbackItems, setFeedbackItems] = useState<FeedbackItem[]>([]);
   const { logout, user } = useAuth();
   const navigate = useNavigate();
+
+  const handleFeedbackUpdate = (items: FeedbackItem[]) => {
+    setFeedbackItems(items);
+  };
 
   const handleLogout = (): void => {
     logout();
     navigate('/');
   };
-
-  useEffect(() => {
-    fetchData();
-    fetchStats();
-  }, []);
-
-  const fetchData = async (): Promise<void> => {
-    try {
-      const response = await axios.get<SatisfactionEntry[]>('/api/satisfaction');
-      setData(response.data);
-      setLoading(false);
-    } catch (err) {
-      setError('Failed to load satisfaction data');
-      setLoading(false);
-    }
-  };
-
-  const fetchStats = async (): Promise<void> => {
-    try {
-      const response = await axios.get<Stats>('/api/satisfaction/stats');
-      setStats(response.data);
-    } catch (err) {
-      console.error('Failed to load statistics');
-    }
-  };
-
-  const handleAdd = async (newEntry: Omit<SatisfactionEntry, 'id' | 'created_at'>): Promise<void> => {
-    try {
-      await axios.post('/api/satisfaction', newEntry);
-      fetchData();
-      fetchStats();
-    } catch (err) {
-      setError('Failed to add satisfaction entry');
-    }
-  };
-
-  const handleDelete = async (id: number): Promise<void> => {
-    if (window.confirm('Are you sure you want to delete this entry?')) {
-      try {
-        await axios.delete(`/api/satisfaction/${id}`);
-        fetchData();
-        fetchStats();
-      } catch (err) {
-        setError('Failed to delete entry');
-      }
-    }
-  };
-
-  if (loading) {
-    return (
-      <div className="min-h-screen bg-gradient-to-br from-purple-500 to-pink-500 p-5">
-        <div className="text-center text-white text-2xl py-12">Loading...</div>
-      </div>
-    );
-  }
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-purple-500 to-pink-500 p-5">
@@ -107,26 +36,29 @@ const Dashboard: React.FC = () => {
       </header>
 
       <main className="max-w-7xl mx-auto">
-        {error && (
-          <div className="bg-red-100 text-red-700 py-4 px-4 rounded-lg mb-5 text-center">
-            {error}
-          </div>
-        )}
-
-        <SatisfactionStats stats={stats} />
-
-        <div className="bg-white rounded-xl p-8 mb-8 shadow-lg">
-          <h2 className="text-gray-800 mb-5 text-2xl border-b-2 border-purple-600 pb-2.5">
-            Add New Satisfaction Entry
-          </h2>
-          <AddSatisfactionForm onAdd={handleAdd} />
+        {/* Real-Time Sentiment Analysis */}
+        <div className="mb-8">
+          <SentimentAnalysis feedbackItems={feedbackItems} isLive={isLive} />
         </div>
 
+        {/* Live Feedback Stream */}
         <div className="bg-white rounded-xl p-8 mb-8 shadow-lg">
-          <h2 className="text-gray-800 mb-5 text-2xl border-b-2 border-purple-600 pb-2.5">
-            Customer Satisfaction Data
-          </h2>
-          <SatisfactionTable data={data} onDelete={handleDelete} />
+          <div className="flex items-center justify-between mb-4">
+            <h2 className="text-gray-800 text-2xl border-b-2 border-purple-600 pb-2.5">
+              Twitter Feedback Stream
+            </h2>
+            <button
+              onClick={() => setIsLive(!isLive)}
+              className={`px-4 py-2 rounded-lg font-medium transition-colors ${
+                isLive
+                  ? 'bg-green-500 text-white hover:bg-green-600'
+                  : 'bg-gray-300 text-gray-700 hover:bg-gray-400'
+              }`}
+            >
+              {isLive ? '● Live' : '○ Paused'}
+            </button>
+          </div>
+          <FeedbackStream isLive={isLive} onFeedbackUpdate={handleFeedbackUpdate} />
         </div>
       </main>
     </div>
@@ -134,4 +66,3 @@ const Dashboard: React.FC = () => {
 };
 
 export default Dashboard;
-

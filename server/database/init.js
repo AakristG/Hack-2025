@@ -82,13 +82,13 @@ const initDatabase = () => {
                   const sampleData = [
                     ['John Doe', 'Product A', 5, 'Excellent product, very satisfied!'],
                     ['Jane Smith', 'Product A', 4, 'Good quality, minor improvements needed'],
-                    ['Bob Johnson', 'Product B', 3, 'Average product, could be better'],
+                    ['Bob Johnson', 'Product A', 3, 'Average product, could be better'],
                     ['Alice Williams', 'Product A', 5, 'Love it! Highly recommend'],
-                    ['Charlie Brown', 'Product B', 2, 'Not what I expected'],
+                    ['Charlie Brown', 'Product A', 2, 'Not what I expected'],
                     ['Diana Prince', 'Product A', 4, 'Good value for money'],
-                    ['Edward Norton', 'Product B', 5, 'Exceeded expectations'],
+                    ['Edward Norton', 'Product A', 5, 'Exceeded expectations'],
                     ['Fiona Apple', 'Product A', 3, 'It\'s okay, nothing special'],
-                    ['George Clooney', 'Product B', 4, 'Solid product, would buy again'],
+                    ['George Clooney', 'Product A', 4, 'Solid product, would buy again'],
                     ['Helen Mirren', 'Product A', 5, 'Perfect! Exactly what I needed']
                   ];
 
@@ -123,13 +123,13 @@ const initDatabase = () => {
               const sampleData = [
                 ['John Doe', 'Product A', 5, 'Excellent product, very satisfied!'],
                 ['Jane Smith', 'Product A', 4, 'Good quality, minor improvements needed'],
-                ['Bob Johnson', 'Product B', 3, 'Average product, could be better'],
+                ['Bob Johnson', 'Product A', 3, 'Average product, could be better'],
                 ['Alice Williams', 'Product A', 5, 'Love it! Highly recommend'],
-                ['Charlie Brown', 'Product B', 2, 'Not what I expected'],
+                ['Charlie Brown', 'Product A', 2, 'Not what I expected'],
                 ['Diana Prince', 'Product A', 4, 'Good value for money'],
-                ['Edward Norton', 'Product B', 5, 'Exceeded expectations'],
+                ['Edward Norton', 'Product A', 5, 'Exceeded expectations'],
                 ['Fiona Apple', 'Product A', 3, 'It\'s okay, nothing special'],
-                ['George Clooney', 'Product B', 4, 'Solid product, would buy again'],
+                ['George Clooney', 'Product A', 4, 'Solid product, would buy again'],
                 ['Helen Mirren', 'Product A', 5, 'Perfect! Exactly what I needed']
               ];
 
