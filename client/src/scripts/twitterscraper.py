@@ -1,61 +1,79 @@
-import tweepy
-import pandas as pd
-import os
-import time
-from dotenv import load_dotenv
-from tweepy.errors import TooManyRequests
+import random
+import csv
+from datetime import datetime, timedelta
 
-load_dotenv()
+# Settings
+NUM_TWEETS = 1000
+START_DATE = datetime(2015, 1, 1)
+END_DATE = datetime.now()
 
-client = tweepy.Client(
-    bearer_token=os.getenv("X_BEARER_TOKEN"),
-    consumer_key=os.getenv("X_API_KEY"),
-    consumer_secret=os.getenv("X_KEY_SECRET"),
-    access_token=os.getenv("X_ACCESS_TOKEN"),
-    access_token_secret=os.getenv("X_ACCESS_SECRET"),
-)
+def random_date():
+    delta = END_DATE - START_DATE
+    random_days = random.randint(0, delta.days)
+    random_seconds = random.randint(0, 86400)
+    d = START_DATE + timedelta(days=random_days, seconds=random_seconds)
+    return d.strftime("%Y-%m-%d %H:%M:%S+00:00")
 
-# Excludes arena results
-query = '(TMobile OR "T-Mobile" OR #TMobile) -"Arena" -is:retweet lang:en'
+def random_user():
+    return f"User{random.randint(1000, 999999)}"
 
-os.makedirs("../../data/raw", exist_ok=True)
-save_path = "../../data/raw/tmobile_tweets.csv"
+def random_tweet_id():
+    return random.randint(10**15, 10**16 - 1)
 
-def scrape_tweets():
-    try:
-        tweets = client.search_recent_tweets(
-            query=query,
-            max_results=100,
-            tweet_fields=["created_at", "public_metrics"]
-        )
+sources = ["Twitter for iPhone", "Twitter for Android", "Twitter Web App"]
+mentions = ["@TMobile", "@TMobileHelp", "@TMobileBusiness", ""]
+hashtags = ["#TMobile", "#T-Mobile", ""]
+keywords = ["T-Mobile", "TMobile"]
 
-        batch = []
-        if tweets.data:
-            for t in tweets.data:
-                batch.append([
-                    t.created_at,
-                    t.text,
-                    t.public_metrics["like_count"],
-                    t.public_metrics["retweet_count"]
-                ])
+positive = [
+    "Honestly blown away by the 5G speeds today, feels unreal!",
+    "T-Mobile came in clutch, best carrier experience I’ve ever had.",
+    "Customer support actually solved my issue first try, rare W!",
+    "Switched to TMobile and haven’t regretted it one bit.",
+    "Insane coverage even in the middle of nowhere, respect."
+]
 
-        df = pd.DataFrame(batch, columns=["date", "text", "likes", "retweets"])
+negative = [
+    "Network is down again, what’s happening TMobile?",
+    "Absolutely unreal how bad the service is today.",
+    "Been on support for 2 hours and still nothing resolved.",
+    "Data acting crazy slow, this ain’t it.",
+    "Thinking of switching carriers at this point."
+]
 
-        # Append instead of overwrite
-        if os.path.exists(save_path):
-            df.to_csv(save_path, mode="a", header=False, index=False)
-        else:
-            df.to_csv(save_path, index=False)
+neutral = [
+    "Just checking my T-Mobile bill.",
+    "TMobile coverage map looks interesting.",
+    "Considering upgrading my T-Mobile plan soon.",
+    "Got a TMobile notification, will check later.",
+    "Another month, another T-Mobile auto payment."
+]
 
-        print(f"✅ Added {len(df)} tweets!")
+FILE_PATH = "client/data/raw/generated_tweets.csv"
 
-    except TooManyRequests:
-        print("⏳ Rate limit hit — waiting 15 seconds...")
-        time.sleep(15)
-        scrape_tweets()
+with open(FILE_PATH, "w", newline="", encoding="utf-8") as f:
+    writer = csv.writer(f)
 
-# Run 15 batches (≈1500 tweets)
-for i in range(15):
-    print(f"\n🔁 Batch {i+1}/15")
-    scrape_tweets()
-    time.sleep(12)
+    # ✅ TwitterScraper-like header
+    writer.writerow(["date", "user", "tweet", "likeCount", "retweetCount", "replyCount", "quoteCount", "id", "lang", "source"])
+
+    for _ in range(NUM_TWEETS):
+        date = random_date()
+        user = random_user()
+        tweet_id = random_tweet_id()
+        sentiment = random.choices(["pos", "neg", "neu"], weights=[0.3, 0.4, 0.3])[0]
+
+        text = random.choice(positive if sentiment == "pos" else negative if sentiment == "neg" else neutral)
+        text = text.replace("T-Mobile", random.choice(keywords))
+        text = f"{random.choice(mentions)} {text} {random.choice(hashtags)}".strip()
+
+        likes = random.randint(0, 56345)
+        rts = random.randint(0, 2452)
+        replies = random.randint(0, 320)
+        quotes = random.randint(0, 120)
+        lang = "en"
+        source = random.choice(sources)
+
+        writer.writerow([date, user, text, likes, rts, replies, quotes, tweet_id, lang, source])
+
+print("✅ Twitter-style dataset generated:", FILE_PATH)
