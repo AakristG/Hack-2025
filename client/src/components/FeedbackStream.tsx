@@ -99,6 +99,8 @@ export function FeedbackStream({ isLive, onFeedbackUpdate }: FeedbackStreamProps
         return <Meh className="w-4 h-4 text-yellow-600" />;
       case 'negative':
         return <Frown className="w-4 h-4 text-red-600" />;
+      default:
+        return <Meh className="w-4 h-4 text-gray-600" />;
     }
   };
 
