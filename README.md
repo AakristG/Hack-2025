@@ -1,141 +1,20 @@
-# Customer Satisfaction Analysis
+## Inspiration
+We were inspired by a problem statement that, while still challenging, seemed to be achievable and within our skill set. We took UI inspiration from streamlined platforms such as X and modeled our AI dashboard after corporate analytic dashboards seen during our past internships.
 
-A simple web application for analyzing customer satisfaction with products. Features user authentication, data visualization, and CRUD operations for satisfaction data.
+## What it does
+Pulse uses AI to collect insights from the data on customer happiness index, consolidates collected issues to suggest actionable steps for resolutions, and provides information about the customer experience through various visuals and graphs.
 
-## Features
+## How we built it
+We started by utilizing Figma and React to create a basic stand alone UI. By identifying that we had access to Tweepy, we decided to scrape our initial data from Twitter to populate our database. We then used the Gemini API to to go through the data, categorize it, create relationships and graphs.
 
-- 🔐 User authentication (login/register)
-- 📊 Interactive charts and statistics
-- 📝 Add, view, and delete satisfaction entries
-- 📈 Rating distribution visualization
-- 🎯 Product-wise analysis
-- 📱 Responsive design
+## Challenges we ran into
+We intended to scrape data from multiple sources online, but had difficultly accessing API's and permissions for sources such as Reddit. As a result we only had the time and resources to scrape data from Twitter, this is one of our main contestants for future application and growth.
 
-## Tech Stack
+## Accomplishments that we're proud of
+We're proud of how modern and readable our website is, it highlights the important elements while making user experiences enjoyable and easy. We're also proud of how we managed to have Gemini API assign user reviews to certain categories for further classification.
 
-### Backend
-- Node.js & Express
-- SQLite database
-- JWT authentication
-- bcrypt for password hashing
+## What we learned
+This was our team's first time utilizing Gemini API in a react web application and it was so cool how we were able to create relationships between the different components of the data. We also utilized some more complex animations on the login page than we previously attemped in the past.
 
-### Frontend
-- React
-- React Router
-- Axios for API calls
-- Recharts for data visualization
-
-## Setup Instructions
-
-### Prerequisites
-- Node.js (v14 or higher)
-- npm or yarn
-
-### Installation
-
-1. **Install backend dependencies:**
-   ```bash
-   npm install
-   ```
-
-2. **Install frontend dependencies:**
-   ```bash
-   cd client
-   npm install
-   cd ..
-   ```
-
-   Or install all at once:
-   ```bash
-   npm run install-all
-   ```
-
-3. **Start the development servers:**
-   ```bash
-   npm run dev
-   ```
-
-   This will start both the backend server (port 5000) and frontend development server (port 3000).
-
-   Or start them separately:
-   ```bash
-   # Terminal 1 - Backend
-   npm run server
-
-   # Terminal 2 - Frontend
-   npm run client
-   ```
-
-4. **Access the application:**
-   - Open your browser and navigate to `http://localhost:3000`
-   - You'll be redirected to the login page
-
-## Default Credentials
-
-- **Username:** `admin`
-- **Password:** `admin123`
-
-## Project Structure
-
-```
-Hack-2025/
-├── server/
-│   ├── index.js              # Express server setup
-│   ├── database/
-│   │   └── init.js           # Database initialization
-│   └── routes/
-│       ├── auth.js           # Authentication routes
-│       └── satisfaction.js  # Satisfaction data routes
-├── client/
-│   ├── public/
-│   ├── src/
-│   │   ├── components/       # React components
-│   │   ├── context/          # Auth context
-│   │   └── App.js
-│   └── package.json
-└── package.json
-```
-
-## API Endpoints
-
-### Authentication
-- `POST /api/auth/register` - Register a new user
-- `POST /api/auth/login` - Login user
-
-### Satisfaction Data
-- `GET /api/satisfaction` - Get all satisfaction entries
-- `GET /api/satisfaction/stats` - Get statistics
-- `POST /api/satisfaction` - Add new entry
-- `DELETE /api/satisfaction/:id` - Delete entry
-
-## Database
-
-The application uses SQLite for simplicity. The database file (`database.sqlite`) will be created automatically in the `server/database/` directory on first run.
-
-### Tables
-- `users` - User accounts
-- `satisfaction_data` - Customer satisfaction entries
-
-## Environment Variables
-
-Create a `.env` file in the root directory (optional):
-
-```
-PORT=5001
-JWT_SECRET=your-secret-key-change-in-production
-GEMINI_API_KEY=your-gemini-api-key-here
-GEMINI_MODEL=gemini-1.5-flash
-```
-
-**Required:**
-- `GEMINI_API_KEY` - Your Google Gemini API key (get it from [Google AI Studio](https://makersuite.google.com/app/apikey))
-
-**Optional:**
-- `PORT` - Server port (default: 5001)
-- `JWT_SECRET` - Secret key for JWT tokens (default: 'your-secret-key-change-in-production')
-- `GEMINI_MODEL` - Gemini model to use (default: 'gemini-1.5-flash'). Options: 'gemini-1.5-flash' (faster, cheaper) or 'gemini-1.5-pro' (more capable)
-
-## License
-
-ISC
-
+## What's next for Pulse
+The next steps ideally include adding a feature that allows AI to make graphs suitable for comparing data across different feedback categories, locations, and experiences. We also saw the opportunity for adding a customer sided interface to the T-Mobile Life App that would contribute to populating our database.
