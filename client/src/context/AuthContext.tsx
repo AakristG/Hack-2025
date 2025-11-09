@@ -10,8 +10,8 @@ interface User {
 interface AuthContextType {
   user: User | null;
   login: (username: string, password: string) => Promise<{ success: boolean; error?: string }>;
-  loginWithGoogle: (credential: string) => Promise<{ success: boolean; error?: string }>;
-  logout: () => void;
+  register: (username: string, email: string, password: string) => Promise<{ success: boolean; error?: string }>;
+  logout: () => Promise<void>;
   loading: boolean;
 }
 
@@ -34,11 +34,18 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   const [loading, setLoading] = useState<boolean>(true);
 
   useEffect(() => {
+    // Check for existing token-based session
     const token = localStorage.getItem('token');
     const userData = localStorage.getItem('user');
     if (token && userData) {
-      setUser(JSON.parse(userData));
-      axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+      try {
+        setUser(JSON.parse(userData));
+        axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+      } catch (error) {
+        console.error('Error parsing user data:', error);
+        localStorage.removeItem('token');
+        localStorage.removeItem('user');
+      }
     }
     setLoading(false);
   }, []);
@@ -57,9 +64,9 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     }
   };
 
-  const loginWithGoogle = async (credential: string): Promise<{ success: boolean; error?: string }> => {
+  const register = async (username: string, email: string, password: string): Promise<{ success: boolean; error?: string }> => {
     try {
-      const response = await axios.post('/api/auth/google', { credential });
+      const response = await axios.post('/api/auth/register', { username, email, password });
       const { token, user } = response.data;
       localStorage.setItem('token', token);
       localStorage.setItem('user', JSON.stringify(user));
@@ -67,11 +74,12 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
       setUser(user);
       return { success: true };
     } catch (error: any) {
-      return { success: false, error: error.response?.data?.error || 'Google login failed' };
+      return { success: false, error: error.response?.data?.error || 'Registration failed' };
     }
   };
 
-  const logout = (): void => {
+  const logout = async (): Promise<void> => {
+    // Clear local storage and state
     localStorage.removeItem('token');
     localStorage.removeItem('user');
     delete axios.defaults.headers.common['Authorization'];
@@ -81,7 +89,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   const value: AuthContextType = {
     user,
     login,
-    loginWithGoogle,
+    register,
     logout,
     loading
   };
