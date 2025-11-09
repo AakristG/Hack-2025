@@ -1,3 +1,5 @@
+# PULSE
+
 ## Inspiration
 We were inspired by a problem statement that, while still challenging, seemed to be achievable and within our skill set. We took UI inspiration from streamlined platforms such as X and modeled our AI dashboard after corporate analytic dashboards seen during our past internships.
 
