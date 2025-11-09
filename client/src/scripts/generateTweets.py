@@ -1,5 +1,5 @@
 import random
-import csv
+import json
 from datetime import datetime, timedelta
 
 # Settings
@@ -130,7 +130,7 @@ negative = [
     "T-Mobile data refusing to participate in society.",
     "I don’t need 5G Ultra, I need 5G that works.",
     "Loading icon gonna be on my tombstone at this rate.",
-    "Not sure if it's congestion or emotional damage at this point."
+    "Not sure if it's congestion or emotional damage at this point.",
     "Why won't your network stay connected? And why can I roam on the super strong ATT network while your network is down?  I'm pretty sure I was promised unlimited domestic roaming when I signed up."
 ]
 
@@ -178,37 +178,51 @@ neutral = [
 ]
 
 
-FILE_PATH = "client/data/raw/tmobile_reviews_full.json"
+FILE_PATH = "/Users/lanemeeks/Documents/GitHub/Hack-2025/client/data/raw/tmobile_reviews_full.json"
 
 seen_messages = set()
+tweets = []
 
-with open(FILE_PATH, "w", newline="", encoding="utf-8") as f:
-    writer = csv.writer(f)
-    writer.writerow(["date", "likeCount", "retweetCount", "replyCount", "source"])
+count = 0
+while count < NUM_TWEETS:
+    total = 1
+    positiveWeight = random.uniform(0, total)
+    neutralWeight = random.uniform(0, total - positiveWeight)
+    negativeWeight = total - (positiveWeight + neutralWeight)
+    sentiment = random.choices(["pos", "neg", "neu"], weights=[positiveWeight, neutralWeight, negativeWeight])[0]
+    text = random.choice(positive if sentiment == "pos" else negative if sentiment == "neg" else neutral)
+    text = text.replace("T-Mobile", random.choice(keywords))
+    text = f"{random.choice(mentions)} {text} {random.choice(hashtags)}".strip()
 
-    count = 0
-    while count < NUM_TWEETS:
-        total = 1
-        positiveWeight = random.uniform(0,total)
-        neutralWeight = random.uniform(0, total - positiveWeight)
-        negativeWeight = total - (positiveWeight + neutralWeight)
-        sentiment = random.choices(["pos", "neg", "neu"], weights=[positiveWeight, neutralWeight, negativeWeight])[0]
-        text = random.choice(positive if sentiment == "pos" else negative if sentiment == "neg" else neutral)
-        text = text.replace("T-Mobile", random.choice(keywords))
-        text = f"{random.choice(mentions)} {text} {random.choice(hashtags)}".strip()
+    if text.lower() in seen_messages:
+        continue
 
-        if text.lower() in seen_messages:
-            continue
+    seen_messages.add(text.lower())
 
-        seen_messages.add(text.lower())
+    date = random_date()
+    likes = random.randint(0, 56345)
+    rts = random.randint(0, 2452)
+    replies = random.randint(0, 320)
+    source = random.choice(sources)
+    tweet_id = random_tweet_id()
 
-        date = random_date()
-        likes = random.randint(0, 56345)
-        rts = random.randint(0, 2452)
-        replies = random.randint(0, 320)
-        source = random.choice(sources)
+    # Create tweet object
+    tweet = {
+        "id": tweet_id,
+        "date": date,
+        "text": text,
+        "likeCount": likes,
+        "retweetCount": rts,
+        "replyCount": replies,
+        "source": source,
+        "sentiment": sentiment
+    }
+    
+    tweets.append(tweet)
+    count += 1
 
-        writer.writerow([date, text, likes, rts, replies, source])
-        count += 1
+# Write to JSON file
+with open(FILE_PATH, "w", encoding="utf-8") as f:
+    json.dump(tweets, f, indent=2, ensure_ascii=False)
 
-print(f" Generated {count} UNIQUE tweets")
+print(f"Generated {count} UNIQUE tweets and saved to {FILE_PATH}")
