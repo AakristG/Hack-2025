@@ -6,8 +6,11 @@ We were inspired by a problem statement that, while still challenging, seemed to
 ## What it does
 Pulse uses AI to collect insights from the data on customer happiness index, consolidates collected issues to suggest actionable steps for resolutions, and provides information about the customer experience through various visuals and graphs.
 
-## How we built it
-We started by utilizing Figma and React to create a basic stand alone UI. By identifying that we had access to Tweepy, we decided to scrape our initial data from Twitter to populate our database. We then used the Gemini API to to go through the data, categorize it, create relationships and graphs.
+## Frameworks
+Front-End: React
+Back-End:  Node.js (Express, SQLite)
+Cloud:     Firebase
+AI:        Gemini API
 
 ## Challenges we ran into
 We intended to scrape data from multiple sources online, but had difficultly accessing API's and permissions for sources such as Reddit. As a result we only had the time and resources to scrape data from Twitter, this is one of our main contestants for future application and growth.
